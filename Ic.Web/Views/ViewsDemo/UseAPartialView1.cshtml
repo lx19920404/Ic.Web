@@ -1,0 +1,15 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@*根据类型接收模型*@
+@model Ic.Web.Models.EventsAndMenusContext
+@{
+    ViewBag.Title = "Use A Patial View";
+    ViewBag.EventsTitle = "Live Events";
+}
+<h2>Use a Partial View</h2>
+<div>this is the main view</div>
+<div>
+    @await Html.PartialAsync("ShowEvents",Model.Events) @*部分视图  视图名和模型*@
+</div>
+

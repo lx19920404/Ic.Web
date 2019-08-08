@@ -1,0 +1,16 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model Ic.Web.Models.Menu
+@{
+    ViewBag.Title = "Strongly typed menu";
+}
+<h2>@ViewBag.Title</h2>
+@Html.DisplayNameFor(m => m.Text)
+<br />
+@*@Html.DisplayFor(m => m.Text);*@
+@Html.TextBoxFor(m => m.Text)
+@Html.EditorFor(m => m.Text)
+
+
+

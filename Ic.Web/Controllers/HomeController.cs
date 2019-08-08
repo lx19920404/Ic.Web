@@ -1,29 +1,17 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
+using System.Text.Encodings.Web;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Ic.Web.Models;
 
 namespace Ic.Web.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController:Controller
     {
-        public IActionResult Index()
-        {
-            return View();
-        }
-
-        public IActionResult Privacy()
-        {
-            return View();
-        }
-
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
+        public IActionResult Index() => View();
+        public string Hello() => "Hello, ASP.NET MVC 6";
+        public string GetString(string name) => HtmlEncoder.Default.Encode($"Hello,{name}");
+        public int Add(int x, int y) => x + y;
     }
 }

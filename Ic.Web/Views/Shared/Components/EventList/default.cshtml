@@ -1,0 +1,14 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@using Ic.Web.Models;
+@model IEnumerable<Event>
+@{
+}
+<h3>Formula 1 Calendar</h3>
+<ul>
+    @foreach(var ev in Model)
+    {
+        <li><div>@ev.Day.ToString("D")</div><div>@ev.Text</div></li>
+    }
+</ul>
