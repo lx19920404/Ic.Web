@@ -9,8 +9,8 @@ namespace Ic.Web.Controllers
 {
     public class ViewsDemoController:Controller
     {
-        private EventsAndMenusContext _context;
-        public ViewsDemoController(EventsAndMenusContext context) //根据类型依赖注入创建控制器
+        private EventsMenusContext _context;
+        public ViewsDemoController(EventsMenusContext context) //根据类型依赖注入创建控制器
         {
             _context = context;
         }

@@ -10,17 +10,14 @@ namespace Ic.Web.Controllers
 {
     public class HTMLHelpersController:Controller
     {
+        private EventsMenusContext _context;
+        public HTMLHelpersController(EventsMenusContext eventsMenusContext)
+        {
+            _context = eventsMenusContext;
+        }
         public IActionResult HelperWithMenu() => View(GetSampleMenu());
         public IActionResult StronglyTypedMenu() => View(GetSampleMenu());
         public IActionResult Display() => View(GetSampleMenu());
-        private Menu GetSampleMenu() =>
-            new Menu
-            {
-                Id = 1,
-                Text = "Schweinsbraten mit Knodel und Sauerkraut",
-                Price = 6.9,
-                Category = "Main"
-            };
         public IActionResult HelperList()
         {
             var cars = new Dictionary<int, string>();
@@ -30,5 +27,13 @@ namespace Ic.Web.Controllers
             cars.Add(4, "Ferrari");
             return View(cars.ToSelectListItems(4));
         }
+        private Menu GetSampleMenu() => _context.Menus.FirstOrDefault();
+            //new Menu
+            //{
+            //    Id = 1,
+            //    Text = "Schweinsbraten mit Knodel und Sauerkraut",
+            //    Price = 6.9,
+            //    Category = "Main"
+            //};
     }
 }

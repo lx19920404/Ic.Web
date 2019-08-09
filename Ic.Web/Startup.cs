@@ -12,6 +12,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -19,6 +21,7 @@ namespace MVCSampleApp
 {
     public class Startup
     {
+        // For more information on how to configure your application, visit http://go.microsoft.com/fwlink/?LinkID=398940
         public Startup(IHostingEnvironment env)
         {
             //添加配置文件
@@ -36,7 +39,6 @@ namespace MVCSampleApp
         }
         // This method gets called by the runtime. Use this method to add services to the container.
         // 这个方法被运行时调用，使用这个方法向容器内注册服务
-        // For more information on how to configure your application, visit http://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
             //添加配置文件
@@ -52,19 +54,22 @@ namespace MVCSampleApp
             //});
             //添加MVC
             services.AddMvc();
-            //services.AddScoped<EventsMenusContext>(); //依赖注入到ViewDemo控制器
-            //注册对象关系映射上下文
+
             services.AddEntityFrameworkSqlServer()
                 .AddDbContext<EventsMenusContext>(options=>
-                options.UseSqlServer(Configuration["Data:ConnectionStrings:DefaultConnection"]));
+                options.UseSqlServer(Configuration["Data:ConnectionStrings:MyConnection"]))
+                .AddDbContext<EventsContext>(options=>
+                options.UseSqlServer(Configuration["Data:ConnectionStrings:MyConnection"]));
         }
         public IConfigurationRoot Configuration { get; }
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         //这个方法被运行时调用，使用这个方法配置HTTP请求管道
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
+
             //配置日志
             loggerFactory.AddConsole();
+            //var logger = loggerFactory.CreateLogger<Startup>();
 
             if (env.IsDevelopment())
             {
