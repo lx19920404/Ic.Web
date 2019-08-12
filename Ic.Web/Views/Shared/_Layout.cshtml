@@ -2,15 +2,21 @@
 
 <html>
 <head>
-    <meta charset="utf-8"/>
+    <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
     <environment names="Development">
         <link rel="stylesheet" href="~/css/layout.css" />
+        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+        <link rel="stylesheet" href="~/lib/layui/css/layui.css" />
+        <script type="text/javascript" src="~/lib/jquery/dist/jquery.js"></script>
+        <script type="text/javascript" src="~/lib/layui/layui.js"></script>
+        <script type="text/javascript" src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
     </environment>
     <environment names="Staging,Production">
-        <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true"/>
+        <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
     </environment>
-    
+
+
     <title>@ViewBag.Title - My ASP.NET Application</title>
 </head>
 <body>
@@ -18,53 +24,60 @@
         <header>
             <h1>ASP.NET MVC Sample App</h1>
         </header>
-        
-        <nav>
-            <ul>
-                <li class="dropdown-menu"><a asp-controller="Home" asp-action="Index">Home</a></li>
-                <li>
-                    <a href="#" class="dropdown-menu">ViewsDemo</a>
-                    <ul>
-                        <li class="dropdown-item"><a asp-controller="ViewsDemo" asp-action="LayoutSample">Layout Sample</a></li>
-                        <li class="dropdown-item"><a asp-controller="ViewsDemo" asp-action="LayoutUsingSections">Layout Using Sections</a></li>
-                        <li class="dropdown-item"><a asp-controller="ViewsDemo" asp-action="PassingAModel">Passing a model</a></li>
-                        <li class="dropdown-item"><a asp-controller="ViewsDemo" asp-action="UseAPartialView1">Use a partial view 1</a></li>
-                        <li class="dropdown-item"><a asp-controller="ViewsDemo" asp-action="UseAPartialView2">Use a partial view 2</a></li>
-                    </ul>
+        <div>
+            <ul class="layui-nav" lay-filter="">
+                <li class="layui-nav-item"><a asp-controller="Home" asp-action="Index">Home</a></li>
+                <li class="layui-nav-item">
+                    <a href="#">ViewsDemo</a>
+                    <dl class="layui-nav-child">
+                        <dd><a asp-controller="ViewsDemo" asp-action="LayoutSample">Layout Sample</a></dd>
+                        <dd><a asp-controller="ViewsDemo" asp-action="LayoutUsingSections">Layout Using Sections</a></dd>
+                        <dd><a asp-controller="ViewsDemo" asp-action="PassingAModel">Passing a model</a></dd>
+                        <dd><a asp-controller="ViewsDemo" asp-action="UseAPartialView1">Use a partial view 1</a></dd>
+                        <dd><a asp-controller="ViewsDemo" asp-action="UseAPartialView2">Use a partial view 2</a></dd>
+                    </dl>
                 </li>
-                <li>
-                    <a href="#" class="dropdown-menu">HTMLHelpers</a>
-                    <ul>
-                        <li class="dropdown-item"><a asp-controller="HTMLHelpers" asp-action="Display">Display</a></li>
-                        <li class="dropdown-item"><a asp-controller="HTMLHelpers" asp-action="HelperList">HelperList</a></li>
-                        <li class="dropdown-item"><a asp-controller="HTMLHelpers" asp-action="HelperWithMenu">HelperWithMenu</a></li>
-                        <li class="dropdown-item"><a asp-controller="HTMLHelpers" asp-action="StronglyTypedMenu">StronglyTypedMenu</a></li>
-                    </ul>
+                <li class="layui-nav-item">
+                    <a href="#">HTMLHelpers</a>
+                    <dl class="layui-nav-child">
+                        <dd><a asp-controller="HTMLHelpers" asp-action="Display">Display</a></dd>
+                        <dd><a asp-controller="HTMLHelpers" asp-action="HelperList">HelperList</a></dd>
+                        <dd><a asp-controller="HTMLHelpers" asp-action="HelperWithMenu">HelperWithMenu</a></dd>
+                        <dd><a asp-controller="HTMLHelpers" asp-action="StronglyTypedMenu">StronglyTypedMenu</a></dd>
+                    </dl>
                 </li>
-                <li>
-                    <a class="dropdown-menu" asp-controller="TagHelpers" asp-action="Index">TagHelpers</a>
-                    <ul>
-                        <li class="dropdown-item"><a asp-controller="TagHelpers" asp-action="LabelHelper">LabelHelper</a></li>
-                        <li class="dropdown-item"><a asp-controller="TagHelpers" asp-action="FormHelper">FormHelper</a></li>
-                        <li class="dropdown-item"><a asp-controller="TagHelpers" asp-action="CustomHelper">CustomHelper</a></li>
-                    </ul>
+                <li class="layui-nav-item">
+                    <a asp-controller="TagHelpers" asp-action="Index">TagHelpers</a>
+                    <dl class="layui-nav-child">
+                        <dd><a asp-controller="TagHelpers" asp-action="LabelHelper">LabelHelper</a></dd>
+                        <dd><a asp-controller="TagHelpers" asp-action="FormHelper">FormHelper</a></dd>
+                        <dd><a asp-controller="TagHelpers" asp-action="CustomHelper">CustomHelper</a></dd>
+                    </dl>
                 </li>
-                <li>
-                    <a class="dropdown-menu" asp-controller="Events" asp-action="Index">Events</a>
+                <li class="layui-nav-item">
+                    <a asp-controller="Events" asp-action="Index">Events</a>
                 </li>
-                <li><a href="#">Demo</a></li>
-                <li><a href="#">About</a></li>
+                <li class="layui-nav-item"><a href="#">Demo</a></li>
+                <li class="layui-nav-item"><a href="#">About</a></li>
             </ul>
-        </nav>
+        </div>
         <br />
         <h3></h3>
         <div>
-            @RenderSection("PageNavigation",required:false)
+            @RenderSection("PageNavigation", required: false)
         </div>
         <div>
             @RenderBody()
         </div>
         <hr />
+        <script>
+            //注意：导航 依赖 element 模块，否则无法进行功能性操作
+            layui.use('element', function () {
+                var element = layui.element;
+
+                //…
+            });
+        </script>
         <footer>
             <p>
                 <div>Sample Code for Professional C#</div>
