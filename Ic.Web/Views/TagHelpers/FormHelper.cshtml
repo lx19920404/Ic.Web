@@ -5,12 +5,12 @@
 @{
     ViewBag.Title = "Form helper";
 }
-<form method="post" asp-method="FormHelper">
+<form class="layui-form" method="post" asp-method="FormHelper">
     <input asp-for="Id" hidden="hidden"/>
     <hr />
-    <label asp-for="Text"></label>
-    <div>
-        <input asp-for="Text" />
+    <label class="layui-form-label" asp-for="Text"></label>
+    <div class="layui-form-block">
+        <input class="layui-input" name="标题" asp-for="Text"/>
         <span asp-validation-for="Text"></span>
     </div>
     <br />
