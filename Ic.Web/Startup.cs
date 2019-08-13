@@ -56,9 +56,11 @@ namespace MVCSampleApp
             services.AddMvc();
 
             services.AddEntityFrameworkSqlServer()
-                .AddDbContext<EventsMenusContext>(options=>
+                .AddDbContext<EventsMenusContext>(options =>
                 options.UseSqlServer(Configuration["Data:ConnectionStrings:MyConnection"]))
-                .AddDbContext<EventsContext>(options=>
+                .AddDbContext<EventsContext>(options =>
+                options.UseSqlServer(Configuration["Data:ConnectionStrings:MyConnection"]))
+                .AddDbContext<UsersContext>(options =>
                 options.UseSqlServer(Configuration["Data:ConnectionStrings:MyConnection"]));
         }
         public IConfigurationRoot Configuration { get; }

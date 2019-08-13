@@ -12,7 +12,7 @@ namespace Ic.Web.Models
         //{
 
         //}
-        public EventsContext(DbContextOptions options) : base(options) { }
+        public EventsContext(DbContextOptions<EventsContext> options) : base(options) { }
         public DbSet<Event> Events { get; set; }
         //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         //{

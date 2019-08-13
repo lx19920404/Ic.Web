@@ -10,19 +10,23 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Create">
+        <form class="layui-form" asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Text" class="control-label"></label>
-                <input asp-for="Text" class="form-control" />
-                <span asp-validation-for="Text" class="text-danger"></span>
+            <div class="layui-form-item">
+                <label class="layui-form-label" asp-for="Text"></label>
+                <div class="layui-input-block">
+                    <input class="layui-input" asp-for="Text" placeholder="请输入标题"/>
+                    <span asp-validation-for="Text" class="text-danger"></span>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="Day" class="control-label"></label>
-                <input asp-for="Day" class="form-control" />
-                <span asp-validation-for="Day" class="text-danger"></span>
+            <div class="layui-form-item">
+                <label class="layui-form-label" asp-for="Day"></label>
+                <div class="layui-input-block">
+                    <input class="layui-input" asp-for="Day" />
+                    <span asp-validation-for="Day" class="text-danger"></span>
+                </div>
             </div>
-            <div class="form-group">
+            <div class="layui-form-item">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
         </form>
