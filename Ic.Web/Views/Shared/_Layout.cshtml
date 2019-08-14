@@ -1,4 +1,8 @@
-﻿<!DOCTYPE html>
+﻿@using Ic.Web.Models
+@model mNavConfig
+@addTagHelper "*,Ic.Web"
+
+<!DOCTYPE html>
 
 <html>
 <head>
@@ -22,9 +26,13 @@
 <body>
     <div>
         <header>
+            @{ 
+                var Model = new mNavConfig(System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "wwwroot", "conf", "NavConfig.xml"));
+            }
             <h1>ASP.NET MVC Sample App</h1>
         </header>
-        <div>
+        <div nav-config="Model"></div>
+        @*<div>
             <ul class="layui-nav" lay-filter="">
                 <li class="layui-nav-item"><a asp-controller="Home" asp-action="Index">Home</a></li>
                 <li class="layui-nav-item">
@@ -60,7 +68,7 @@
                 <li class="layui-nav-item"><a href="#">Demo</a></li>
                 <li class="layui-nav-item"><a href="#">About</a></li>
             </ul>
-        </div>
+        </div>*@
         <br />
         <h3></h3>
         <div>

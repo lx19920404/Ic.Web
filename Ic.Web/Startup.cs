@@ -54,7 +54,7 @@ namespace MVCSampleApp
             //});
             //添加MVC
             services.AddMvc();
-
+            services.AddSingleton(new mNavConfig(System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "wwwroot", "conf", "NavConfig.xml")));
             services.AddEntityFrameworkSqlServer()
                 .AddDbContext<EventsMenusContext>(options =>
                 options.UseSqlServer(Configuration["Data:ConnectionStrings:MyConnection"]))

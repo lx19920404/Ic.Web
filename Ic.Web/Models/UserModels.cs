@@ -9,13 +9,17 @@ namespace Ic.Web.Models
 {
     public class User
     {
+        [Form(FormItemType.Text, "")]
         public string Id { get; set; }
+        [Form(FormItemType.Text, "")]
         public string Password { get; set; }
         [Form(FormItemType.Text,"")]
         public string Nick { get; set; }
+        [Form(FormItemType.Text, "")]
         public string Name { get; set; }
-        //[Form(FormItemType.ComboBox,"男，女")]
+        [Form(FormItemType.Text, "")]
         public string Sex { get; set; }
+        [Form(FormItemType.Text, "")]
         public string Mail { get; set; }
     }
     public class UsersContext : DbContext
