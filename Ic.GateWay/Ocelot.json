@@ -1,0 +1,71 @@
+{
+  "ReRoutes": [
+    // API01:CAS.ClientService
+    {
+      "UseServiceDiscovery": true, // use Consul service discovery
+      "DownstreamPathTemplate": "/api/{url}",
+      "DownstreamScheme": "http",
+      "ServiceName": "ClientService",
+      "LoadBalancerOptions": {
+        "Type": "RoundRobin"
+      },
+      "UpstreamPathTemplate": "/api/clientservice/{url}",
+      "UpstreamHttpMethod": [ "Get", "Post" ],
+      "ReRoutesCaseSensitive": false // non case sensitive
+    },
+    // API02:CAS.ProductService
+    {
+      "UseServiceDiscovery": true, // use Consul service discovery
+      "DownstreamPathTemplate": "/api/{url}",
+      "DownstreamScheme": "http",
+      "ServiceName": "ProductService",
+      "LoadBalancerOptions": {
+        "Type": "RoundRobin"
+      },
+      "UpstreamPathTemplate": "/api/productservice/{url}",
+      "UpstreamHttpMethod": [ "Get", "Post" ],
+      "ReRoutesCaseSensitive": false // non case sensitive
+    }
+  ],
+  "GlobalConfiguration": {
+    //"BaseUrl": "https://api.mybusiness.com"
+    "ServiceDiscoveryProvider": {
+      "Host": "127.0.0.1", // Consul Service IP
+      "Port": 8500 // Consul Service Port
+    }
+  }
+}
+
+
+//ÏÂÃæÎªHard-Code
+//{
+//  "ReRoutes": [
+//    {
+//      "DownstreamPathTemplate": "/{all}",
+//      "DownstreamScheme": "http",
+//      "DownstreamHostAndPorts": [
+//        {
+//          "Host": "localhost",
+//          "Port": 60001
+//        }
+//      ],
+//      "UpstreamPathTemplate": "/clientservice/{all}",
+//      "UpstreamHttpMethod": [ "GET", "POST" ]
+//    },
+//    {
+//      "DownstreamPathTemplate": "/{all}",
+//      "DownstreamScheme": "http",
+//      "DownstreamHostAndPorts": [
+//        {
+//          "Host": "localhost",
+//          "Port": 60002
+//        }
+//      ],
+//      "UpstreamPathTemplate": "/productservice/{all}",
+//      "UpstreamHttpMethod": [ "GET", "POST" ]
+//    }
+//  ],
+//  "GlobalConfiguration": {
+//    "BaseUrl": "http://localhost:60005/"
+//  }
+//}
