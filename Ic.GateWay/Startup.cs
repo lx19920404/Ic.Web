@@ -2,9 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using IdentityServer4.AccessTokenValidation;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-//using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -28,7 +28,32 @@ namespace Ic.GateWay
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            //services.AddControllers();
+            // IdentityServer
+            #region IdentityServerAuthenticationOptions => need to refactor
+            Action<IdentityServerAuthenticationOptions> isaOptClient = option =>
+            {
+                option.Authority = Configuration["IdentityService:Uri"];
+                option.ApiName = "clientservice";
+                option.RequireHttpsMetadata = Convert.ToBoolean(Configuration["IdentityService:UseHttps"]);
+                option.SupportedTokens = SupportedTokens.Both;
+                option.ApiSecret = Configuration["IdentityService:ApiSecrets:clientservice"];
+            };
+
+            Action<IdentityServerAuthenticationOptions> isaOptProduct = option =>
+            {
+                option.Authority = Configuration["IdentityService:Uri"];
+                option.ApiName = "productservice";
+                option.RequireHttpsMetadata = Convert.ToBoolean(Configuration["IdentityService:UseHttps"]);
+                option.SupportedTokens = SupportedTokens.Both;
+                option.ApiSecret = Configuration["IdentityService:ApiSecrets:productservice"];
+            };
+            #endregion
+
+            services.AddAuthentication()
+                .AddIdentityServerAuthentication("ClientServiceKey", isaOptClient)
+                .AddIdentityServerAuthentication("ProductServiceKey", isaOptProduct);
+
+            //Ocelot
             services.AddOcelot(Configuration).AddConsul();
         }
 
@@ -39,24 +64,7 @@ namespace Ic.GateWay
             {
                 app.UseDeveloperExceptionPage();
             }
-            //else
-            //{
-            //    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-            //    app.UseHsts();
-            //}
-
             app.UseOcelot().Wait();
-
-            //app.UseHttpsRedirection();
-
-            //app.UseRouting();
-
-            //app.UseAuthorization();
-
-            //app.UseEndpoints(endpoints =>
-            //{
-            //    endpoints.MapControllers();
-            //});
         }
     }
 }

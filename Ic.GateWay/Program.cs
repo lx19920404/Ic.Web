@@ -12,45 +12,9 @@ namespace Ic.GateWay
 {
     public class Program
     {
-        //public static void Main(string[] args)
-        //{
-        //    CreateHostBuilder(args).Build().Run();
-        //}
-
-        //public static IHostBuilder CreateHostBuilder(string[] args) =>
-        //    Host.CreateDefaultBuilder(args)
-        //        .ConfigureWebHostDefaults(webBuilder =>
-        //        {
-        //            var config = new ConfigurationBuilder().AddCommandLine(args).Build();
-        //            string ip = config["ip"];
-        //            string port = config["port"];
-        //            webBuilder.UseStartup<Startup>()
-        //            .UseUrls($"http://{ip}:{port}")
-        //            .ConfigureAppConfiguration((hostingContext, builder) =>
-        //            {
-        //                builder.AddJsonFile("configuration.json", false, true);
-        //            });
-        //        });
-
         public static void Main(string[] args)
         {
-            //BuildWebHost(args).Run();
             CreateWebHostBuilder(args).Build().Run();
-        }
-
-        public static IWebHost BuildWebHost(string[] args)
-        {
-            var config = new ConfigurationBuilder().AddCommandLine(args).Build();
-            string ip = config["ip"];
-            string port = config["port"];
-            return WebHost.CreateDefaultBuilder(args)
-                            .UseStartup<Startup>()
-                            .UseUrls($"http://{ip}:{port}")
-                            .ConfigureAppConfiguration((hostingContext, builder) =>
-                            {
-                                builder.AddJsonFile("configuration.json", false, true);
-                            })
-                            .Build();
         }
         public static IWebHostBuilder CreateWebHostBuilder(string[] args)
         {
