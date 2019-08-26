@@ -13,6 +13,7 @@ using Microsoft.Extensions.Logging;
 using Ocelot.DependencyInjection;
 using Ocelot.Middleware;
 using Ocelot.Provider.Consul;
+using Ocelot.Provider.Polly;
 
 namespace Ic.GateWay
 {
@@ -54,7 +55,7 @@ namespace Ic.GateWay
                 .AddIdentityServerAuthentication("ProductServiceKey", isaOptProduct);
 
             //Ocelot
-            services.AddOcelot(Configuration).AddConsul();
+            services.AddOcelot(Configuration).AddConsul().AddPolly();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
