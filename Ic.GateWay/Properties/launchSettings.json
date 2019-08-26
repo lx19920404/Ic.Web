@@ -21,8 +21,7 @@
     "Ic.GateWay": {
       "commandName": "Project",
       "commandLineArgs": "--ip 127.0.0.1 --port 5001",
-      "launchBrowser": true,
-      "launchUrl": "127.0.0.1:5001/api/clientservice/values",
+      "launchUrl": "api/clientservice/values",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
