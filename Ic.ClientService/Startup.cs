@@ -27,14 +27,18 @@ namespace Ic.ClientService
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            //IdentityServer
             services.AddMvcCore().AddAuthorization().AddJsonFormatters();
-            services.AddAuthentication(Configuration["Identity:Scheme"])
+            services.AddAuthentication(Configuration["IdentityService:DefaultScheme"])
                 .AddIdentityServerAuthentication(options =>
                 {
-                    options.RequireHttpsMetadata = false;
-                    options.Authority = $"http://{Configuration["Identity:IP"]}:{Configuration["Identity:Port"]}";
-                    options.ApiName = Configuration["Service:Name"]; // match with configuration in IdentityServer
+                    options.Authority = Configuration["IdentityService:Uri"];
+                    options.RequireHttpsMetadata = Convert.ToBoolean(Configuration["IdentityService:UseHttps"]);
+                    //options.ApiName = Configuration["Service:Name"]; // match with configuration in IdentityServer
                 });
+
+            //Swagger
+            //........
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -56,10 +60,14 @@ namespace Ic.ClientService
             app.UseMvc();
 
 
+            //***************此处为Consul注册代码********************************************************************
             String ip = Configuration["ip"];//部署到不同服务器的时候不能写成127.0.0.1或者0.0.0.0,因为这是让服务消费者调用的地址
             Int32 port = Int32.Parse(Configuration["port"]);
             //向consul注册服务
-            ConsulClient client = new ConsulClient(ConfigurationOverview);
+            ConsulClient client = new ConsulClient(config=> {
+                config.Address = new Uri(Configuration["ConsulServer:Uri"]);
+                config.Datacenter = Configuration["ConsulServer:Datacenter"];
+            });
             Task<WriteResult> result = client.Agent.ServiceRegister(new AgentServiceRegistration()
             {
                 ID = "ClientService",// + Guid.NewGuid(),//服务编号，不能重复，用Guid最简单
@@ -74,11 +82,7 @@ namespace Ic.ClientService
                     Timeout = TimeSpan.FromSeconds(5)
                 }
             });
-        }
-        private static void ConfigurationOverview(ConsulClientConfiguration obj)
-        {
-            obj.Address = new Uri("http://127.0.0.1:8500");
-            obj.Datacenter = "dc1";
+            //*******************************************************************************************************
         }
     }
 }
