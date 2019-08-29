@@ -1,6 +1,5 @@
 {
   "ReRoutes": [
-
     {
       "UseServiceDiscovery": false, // do not use Consul service discovery in DEV env
       "DownstreamPathTemplate": "/api/{url}",
@@ -33,8 +32,7 @@
         "UseTracing": false // use butterfly to tracing request chain
       },
       "ReRoutesCaseSensitive": false // non case sensitive
-    }
-    ,
+    },
     // API01:CAS.ClientService
     {
       "UseServiceDiscovery": true, // use Consul service discovery
@@ -45,19 +43,6 @@
         "Type": "RoundRobin"
       },
       "UpstreamPathTemplate": "/api/clientservice/{url}",
-      "UpstreamHttpMethod": [ "Get", "Post" ],
-      "ReRoutesCaseSensitive": false // non case sensitive
-    },
-    // API02:CAS.ProductService
-    {
-      "UseServiceDiscovery": true, // use Consul service discovery
-      "DownstreamPathTemplate": "/api/{url}",
-      "DownstreamScheme": "http",
-      "ServiceName": "ProductService",
-      "LoadBalancerOptions": {
-        "Type": "RoundRobin"
-      },
-      "UpstreamPathTemplate": "/api/productservice/{url}",
       "UpstreamHttpMethod": [ "Get", "Post" ],
       "ReRoutesCaseSensitive": false // non case sensitive
     }
@@ -72,35 +57,3 @@
 }
 
 
-//ÏÂÃæÎªHard-Code
-//{
-//  "ReRoutes": [
-//    {
-//      "DownstreamPathTemplate": "/{all}",
-//      "DownstreamScheme": "http",
-//      "DownstreamHostAndPorts": [
-//        {
-//          "Host": "localhost",
-//          "Port": 60001
-//        }
-//      ],
-//      "UpstreamPathTemplate": "/clientservice/{all}",
-//      "UpstreamHttpMethod": [ "GET", "POST" ]
-//    },
-//    {
-//      "DownstreamPathTemplate": "/{all}",
-//      "DownstreamScheme": "http",
-//      "DownstreamHostAndPorts": [
-//        {
-//          "Host": "localhost",
-//          "Port": 60002
-//        }
-//      ],
-//      "UpstreamPathTemplate": "/productservice/{all}",
-//      "UpstreamHttpMethod": [ "GET", "POST" ]
-//    }
-//  ],
-//  "GlobalConfiguration": {
-//    "BaseUrl": "http://localhost:60005/"
-//  }
-//}
