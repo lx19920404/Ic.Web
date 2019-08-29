@@ -40,19 +40,9 @@ namespace Ic.GateWay
                 option.ApiSecret = Configuration["IdentityService:ApiSecrets:clientservice"];
             };
 
-            Action<IdentityServerAuthenticationOptions> isaOptProduct = option =>
-            {
-                option.Authority = Configuration["IdentityService:Uri"];
-                option.ApiName = "productservice";
-                option.RequireHttpsMetadata = Convert.ToBoolean(Configuration["IdentityService:UseHttps"]);
-                option.SupportedTokens = SupportedTokens.Both;
-                option.ApiSecret = Configuration["IdentityService:ApiSecrets:productservice"];
-            };
             #endregion
-
             services.AddAuthentication()
-                .AddIdentityServerAuthentication("ClientServiceKey", isaOptClient)
-                .AddIdentityServerAuthentication("ProductServiceKey", isaOptProduct);
+                .AddIdentityServerAuthentication("ClientServiceKey", isaOptClient);
 
             //Ocelot
             services.AddOcelot(Configuration).AddConsul().AddPolly();
