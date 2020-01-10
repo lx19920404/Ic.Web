@@ -17,8 +17,13 @@ namespace Ic.Identity
             CreateWebHostBuilder(args).Build().Run();
         }
 
-        public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
-            WebHost.CreateDefaultBuilder(args)
-                .UseStartup<Startup>();
+        public static IWebHostBuilder CreateWebHostBuilder(string[] args) 
+        { 
+            var config1 = new ConfigurationBuilder().AddCommandLine(args).Build();
+            string ip = config1["ip"];
+            string port = config1["port"];
+            return WebHost.CreateDefaultBuilder(args)
+                .UseStartup<Startup>().UseUrls($"http://{ip}:{port}");
+        }
     }
 }

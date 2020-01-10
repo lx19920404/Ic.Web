@@ -23,8 +23,6 @@ namespace Ic.Identity
             return new[]
             {
                 new ApiResource("clientservice", "CAS Client Service"),
-                new ApiResource("productservice", "CAS Product Service"),
-                new ApiResource("agentservice", "CAS Agent Service")
             };
         }
 
@@ -36,66 +34,33 @@ namespace Ic.Identity
         {
             return new[]
             {
+                //ClientService项目使用密码方式授权
                 new Client
                 {
                     ClientId = "cas.sg.web.nb",
                     ClientName = "CAS NB System MPA Client",
                     ClientSecrets = new [] { new Secret("websecret".Sha256()) },
                     AllowedGrantTypes = GrantTypes.ResourceOwnerPassword,
-                    AllowedScopes = new [] { "clientservice", "productservice",
+                    //RedirectUris = {Configuration["Clients:MvcClient:RedirectUri"]},
+                    //PostLogoutRedirectUris = { Configuration["Clients:MvcClient:PostLogoutRedirectUri"] },//{ $"http://{Configuration["Clients:MvcClient:IP"]}:{Configuration["Clients:MvcClient:Port"]}/signout-callback-oidc" },
+                    AllowedScopes = new [] { "clientservice",
                         IdentityServerConstants.StandardScopes.OpenId,
                         IdentityServerConstants.StandardScopes.Profile }
                 },
+                //Blog项目采用OpenIDConnect方式
                 new Client
                 {
-                    ClientId = "cas.sg.mobile.nb",
-                    ClientName = "CAS NB System Mobile App Client",
-                    ClientSecrets = new [] { new Secret("mobilesecret".Sha256()) },
-                    AllowedGrantTypes = GrantTypes.ResourceOwnerPassword,
-                    AllowedScopes = new [] { "productservice",
-                        IdentityServerConstants.StandardScopes.OpenId,
-                        IdentityServerConstants.StandardScopes.Profile }
-                },
-                new Client
-                {
-                    ClientId = "cas.sg.spa.nb",
-                    ClientName = "CAS NB System SPA Client",
-                    ClientSecrets = new [] { new Secret("spasecret".Sha256()) },
-                    AllowedGrantTypes = GrantTypes.ResourceOwnerPassword,
-                    AllowedScopes = new [] { "agentservice", "clientservice",
-                        IdentityServerConstants.StandardScopes.OpenId,
-                        IdentityServerConstants.StandardScopes.Profile }
-                },
-                new Client
-                {
-                    ClientId = "cas.sg.mvc.nb.implicit",
-                    ClientName = "CAS NB System MVC App Client",
+                    ClientId = "cas.sg.web.implicit",
+                    ClientName = "CAS NB System MPA Client",
+                    ClientSecrets = new [] { new Secret("websecret".Sha256()) },
+                    RequireConsent = false,
                     AllowedGrantTypes = GrantTypes.Implicit,
-                    RedirectUris = { Configuration["Clients:MvcClient:RedirectUri"] },
-                    PostLogoutRedirectUris = { Configuration["Clients:MvcClient:PostLogoutRedirectUri"] },
-                    AllowedScopes = new [] {
+                    RedirectUris = { "http://10.0.75.1:5200/signin-oidc" },//登录成功后返回的客户端地址
+                    PostLogoutRedirectUris = { "http://10.0.75.1:5200 /signout-callback-oidc" },//注销登录后返回的客户端地址
+                    AllowedScopes = new [] { "clientservice",
                         IdentityServerConstants.StandardScopes.OpenId,
-                        IdentityServerConstants.StandardScopes.Profile,
-                        "agentservice", "clientservice"
-                    },
-                    //AccessTokenLifetime = 3600, // one hour
-                    AllowAccessTokensViaBrowser = true // can return access_token to this client
-                },
-                new Client
-                {
-                    ClientId = "cas.mvc.client.implicit",
-                    ClientName = "CAS MVC Web App Client",
-                    AllowedGrantTypes = GrantTypes.Implicit,
-                    RedirectUris = {Configuration["Clients:MvcClient:RedirectUri"]},
-                    PostLogoutRedirectUris = {Configuration["Clients:MvcClient:PostLogoutRedirectUri"] },
-                    //RedirectUris = { $"http://{Configuration["Clients:MvcClient:IP"]}:{Configuration["Clients:MvcClient:Port"]}/" },
-                    //PostLogoutRedirectUris = { $"http://{Configuration["Clients:MvcClient:IP"]}:{Configuration["Clients:MvcClient:Port"]}/signout-callback-oidc" },
-                    AllowedScopes = new [] {
-                        IdentityServerConstants.StandardScopes.OpenId,
-                        IdentityServerConstants.StandardScopes.Profile,
-                        "agentservice", "clientservice"
-                    },
-                    AllowAccessTokensViaBrowser = true // can return access_token to this client
+                        IdentityServerConstants.StandardScopes.Profile },
+                    AllowAccessTokensViaBrowser = true  //can return access_token to this client
                 }
             };
         }
