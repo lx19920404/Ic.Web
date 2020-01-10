@@ -3,7 +3,22 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp2.2</TargetFramework>
     <Platforms>AnyCPU;x86;x64</Platforms>
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="IdentityDbContext.cs" />
+    <Compile Remove="ILoginUserRepository.cs" />
+    <Compile Remove="ILoginUserService.cs" />
+    <Compile Remove="IRepository.cs" />
+    <Compile Remove="LoginRequestParam.cs" />
+    <Compile Remove="LoginUser.cs" />
+    <Compile Remove="LoginUserRepository.cs" />
+    <Compile Remove="LoginUserService.cs" />
+    <Compile Remove="ProfileService.cs" />
+    <Compile Remove="RepositoryBase.cs" />
+    <Compile Remove="ResourceOwnerPasswordValidator.cs" />
+  </ItemGroup>
 
   <ItemGroup>
     <None Include="Views\Account\AccessDenied.cshtml" />
@@ -38,10 +53,14 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Consul" Version="0.7.2.6" />
     <PackageReference Include="IdentityServer4" Version="2.5.2" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.Extensions.PlatformAbstractions" Version="1.1.0" />
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.9.5" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.3" />
+    <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="2.2.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -54,6 +73,10 @@
     <None Update="certificate\cas.clientservice.pfx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="CustomLogin\" />
   </ItemGroup>
 
 </Project>

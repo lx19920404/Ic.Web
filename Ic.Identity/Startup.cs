@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
+using Consul;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -11,6 +12,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.PlatformAbstractions;
+using Microsoft.IdentityModel.Logging;
 
 namespace Ic.Identity
 {
@@ -28,7 +30,7 @@ namespace Ic.Identity
             //Ioc DbContext
             services.AddDbContextPool<IdentityDbContext>(options =>
             {
-                options.UseSqlServer(Configuration["DB:Dev"]);
+                options.UseMySql(Configuration["DB:MySql"]);
             });
 
             //Ioc Service & Repository
@@ -48,7 +50,11 @@ namespace Ic.Identity
                 .AddInMemoryApiResources(InMemoryConfiguration.GetApiResources())
                 .AddInMemoryClients(InMemoryConfiguration.GetClients())
                 .AddResourceOwnerValidator<ResourceOwnerPasswordValidator>()
-                .AddProfileService<ProfileService>();
+                .AddProfileService<ProfileService>()
+                ;
+
+
+
 
             //for QuickStart-UI
             services.AddMvc();
@@ -57,6 +63,7 @@ namespace Ic.Identity
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+            IdentityModelEventSource.ShowPII = true;
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -65,6 +72,32 @@ namespace Ic.Identity
             //for QuickStart-UI 为IdentityServer4.QuickStart-UI提供支持
             app.UseStaticFiles();
             app.UseMvcWithDefaultRoute();
+            
+
+
+            //***************此处为Consul注册代码********************************************************************
+            String ip = Configuration["ip"];//部署到不同服务器的时候不能写成127.0.0.1或者0.0.0.0,因为这是让服务消费者调用的地址
+            Int32 port = Int32.Parse(Configuration["port"]);
+            //向consul注册服务
+            ConsulClient client = new ConsulClient(config => {
+                config.Address = new Uri(Configuration["ConsulServer:Uri"]);
+                config.Datacenter = Configuration["ConsulServer:Datacenter"];
+            });
+            Task<WriteResult> result = client.Agent.ServiceRegister(new AgentServiceRegistration()
+            {
+                ID = "IdentityService_" + Guid.NewGuid().ToString().Substring(0, 7),//服务编号，不能重复，用Guid最简单
+                Name = "IdentityService",//服务的名字
+                Address = ip,//我的ip地址(可以被其他应用访问的地址，本地测试可以用127.0.0.1，机房环境中一定要写自己的内网ip地址)
+                Port = port,//我的端口
+                Check = new AgentServiceCheck()
+                {
+                    DeregisterCriticalServiceAfter = TimeSpan.FromSeconds(5),//服务停止多久后反注册
+                    Interval = TimeSpan.FromSeconds(10),//健康检查时间间隔，或者称为心跳间隔
+                    HTTP = $"http://{ip}:{port}/api/health",//健康检查地址,
+                    Timeout = TimeSpan.FromSeconds(5)
+                }
+            });
+            //*******************************************************************************************************
         }
     }
 }

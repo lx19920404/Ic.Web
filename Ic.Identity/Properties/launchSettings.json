@@ -3,7 +3,7 @@
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
     "iisExpress": {
-      "applicationUrl": "http://localhost:5100",
+      "applicationUrl": "http://10.0.75.1:5100",
       "sslPort": 0
     }
   },
@@ -17,10 +17,16 @@
     },
     "Ic.Identity": {
       "commandName": "Project",
+      "commandLineArgs": "--ip 10.0.75.1 --port 5100",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
-      "applicationUrl": "http://localhost:5100"
+      "applicationUrl": "http://10.0.75.1:5100"
+    },
+    "Docker": {
+      "commandName": "Docker",
+      "launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}",
+      "httpPort": 10002
     }
   }
 }
