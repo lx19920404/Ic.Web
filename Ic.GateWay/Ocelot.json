@@ -1,59 +1,81 @@
 {
-  "ReRoutes": [
-    {
-      "UseServiceDiscovery": false, // do not use Consul service discovery in DEV env
-      "DownstreamPathTemplate": "/api/{url}",
-      "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
+    "ReRoutes": [
+        
+        //认证服务
         {
-          "Host": "localhost",
-          "Port": "5100"
+            "UseServiceDiscovery": true, // do not use Consul service discovery in DEV env
+            "DownstreamPathTemplate": "/{url}",
+            "DownstreamScheme": "http",
+            //不使用服务发现时的认证地址和端口
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "10.0.75.1",
+                    "Port": "5100"
+                }
+            ],
+            "ServiceName": "IdentityService",
+            "LoadBalancerOptions": {
+                "Type": "RoundRobin"
+            },
+            "UpstreamPathTemplate": "/{url}",
+            "UpstreamHttpMethod": [ "Get", "Post" ],
+            "RateLimitOptions": {
+                "ClientWhitelist": [ "admin" ], // 白名单
+                "EnableRateLimiting": true, // 是否启用限流
+                "Period": "1m", // 统计时间段：1s, 5m, 1h, 1d
+                "PeriodTimespan": 15, // 多少秒之后客户端可以重试
+                "Limit": 10 // 在统计时间段内允许的最大请求数量
+            },
+            "QoSOptions": {
+                "ExceptionsAllowedBeforeBreaking": 2, // 允许多少个异常请求
+                "DurationOfBreak": 5000, // 熔断的时间，单位为秒
+                "TimeoutValue": 3000 // 如果下游请求的处理时间超过多少则视如该请求超时
+            },
+            "HttpHandlerOptions": {
+                "UseTracing": false // use butterfly to tracing request chain
+            },
+            "ReRoutesCaseSensitive": false // 大小写敏感
+        },
+        //接口服务路由
+        {
+            "UseServiceDiscovery": true, // 是否启用服务发现
+            "DownstreamPathTemplate": "/api/{url}", // 下游网址模板
+            "DownstreamScheme": "http", // 下游网址协议
+            "ServiceName": "ClientService", // 服务名称,此名称为
+            "LoadBalancerOptions": { // 负载均衡选项
+                "Type": "RoundRobin" // 轮询调度
+            },
+            "UpstreamPathTemplate": "/client/{url}", // 上游网址模板
+            "UpstreamHttpMethod": [ "Get", "Post" ], // 上游请求类型
+            "ReRoutesCaseSensitive": false, // 不区分大小写 non case sensitive
+            //token
+            //"AuthenticationOptions": {
+            //    "AuthenticationProviderKey": "ClientServiceKey",
+            //    "AllowedScopes": []
+            //}
+        },
+        //Blog服务路由
+        {
+            "UseServiceDiscovery": true, // 是否启用服务发现
+            "DownstreamPathTemplate": "/api/{url}", // 下游网址模板
+            "DownstreamScheme": "http", // 下游网址协议
+            "ServiceName": "BlogService", // 服务名称,此名称为
+            "LoadBalancerOptions": { // 负载均衡选项
+                "Type": "RoundRobin" // 轮询调度
+            },
+            "UpstreamPathTemplate": "/blog/{url}", // 上游网址模板
+            "UpstreamHttpMethod": [ "Get", "Post" ], // 上游请求类型
+            "ReRoutesCaseSensitive": false // 不区分大小写 non case sensitive
         }
-      ],
-      "ServiceName": "CAS.IdentityService",
-      "LoadBalancerOptions": {
-        "Type": "RoundRobin"
-      },
-      "UpstreamPathTemplate": "/api/identityservice/{url}",
-      "UpstreamHttpMethod": [ "Get", "Post" ],
-      "RateLimitOptions": {
-        "ClientWhitelist": [ "admin" ], // 白名单
-        "EnableRateLimiting": true, // 是否启用限流
-        "Period": "1m", // 统计时间段：1s, 5m, 1h, 1d
-        "PeriodTimespan": 15, // 多少秒之后客户端可以重试
-        "Limit": 10 // 在统计时间段内允许的最大请求数量
-      },
-      "QoSOptions": {
-        "ExceptionsAllowedBeforeBreaking": 2, // 允许多少个异常请求
-        "DurationOfBreak": 5000, // 熔断的时间，单位为秒
-        "TimeoutValue": 3000 // 如果下游请求的处理时间超过多少则视如该请求超时
-      },
-      "HttpHandlerOptions": {
-        "UseTracing": false // use butterfly to tracing request chain
-      },
-      "ReRoutesCaseSensitive": false // non case sensitive
-    },
-    // API01:CAS.ClientService
-    {
-      "UseServiceDiscovery": true, // use Consul service discovery
-      "DownstreamPathTemplate": "/api/{url}",
-      "DownstreamScheme": "http",
-      "ServiceName": "ClientService",
-      "LoadBalancerOptions": {
-        "Type": "RoundRobin"
-      },
-      "UpstreamPathTemplate": "/api/clientservice/{url}",
-      "UpstreamHttpMethod": [ "Get", "Post" ],
-      "ReRoutesCaseSensitive": false // non case sensitive
+
+    ],
+    "GlobalConfiguration": {
+        //服务发现的地址和端口
+        "ServiceDiscoveryProvider": {
+            "Host": "127.0.0.1", // Consul Service IP
+            "Port": 8500 // Consul Service Port
+        }
     }
-  ],
-  "GlobalConfiguration": {
-    //"BaseUrl": "https://api.mybusiness.com"
-    "ServiceDiscoveryProvider": {
-      "Host": "127.0.0.1", // Consul Service IP
-      "Port": 8500 // Consul Service Port
-    }
-  }
 }
 
 
