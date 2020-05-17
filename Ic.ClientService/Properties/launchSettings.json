@@ -3,7 +3,7 @@
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
     "iisExpress": {
-      "applicationUrl": "http://localhost:5002",
+      "applicationUrl": "http://127.0.0.1:5200",
       "sslPort": 0
     }
   },
@@ -11,7 +11,7 @@
   "profiles": {
     "IIS Express": {
       "commandName": "IISExpress",
-      "commandLineArgs": "--ip 127.0.0.1 --port 5002",
+      "commandLineArgs": "--ip 127.0.0.1 --port 5201",
       "launchBrowser": true,
       "launchUrl": "api/values",
       "environmentVariables": {
@@ -20,12 +20,17 @@
     },
     "Ic.ClientService": {
       "commandName": "Project",
-      "commandLineArgs": "--ip 127.0.0.1 --port 5002",
+      "commandLineArgs": "--ip 127.0.0.1 --port 5201",
       "launchUrl": "api/values",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
-      "applicationUrl": "http://localhost:5002"
+      "applicationUrl": "http://127.0.0.1:5200"
+    },
+    "Docker": {
+      "commandName": "Docker",
+      "launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}/api/values",
+      "publishAllPorts": true
     }
   }
 }

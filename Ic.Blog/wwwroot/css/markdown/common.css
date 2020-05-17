@@ -1,0 +1,16 @@
+﻿img{
+    height:auto;
+    width:100%;
+}
+
+.markdown-body ol{
+    list-style:decimal
+}
+
+.markdown-body ul{
+    list-style:square
+}
+
+article blockquote{
+    font-style:normal
+}

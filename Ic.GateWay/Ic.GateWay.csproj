@@ -4,7 +4,7 @@
     <TargetFramework>netcoreapp2.2</TargetFramework>
     <UserSecretsId>3796198c-a0dc-4e40-ae6c-673b7533362f</UserSecretsId>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
-    <Platforms>AnyCPU;x86;x64</Platforms>
+    <Platforms>x64</Platforms>
   </PropertyGroup>
 
   <ItemGroup>
@@ -14,5 +14,7 @@
     <PackageReference Include="Ocelot.Provider.Consul" Version="13.0.0" />
     <PackageReference Include="Ocelot.Provider.Polly" Version="13.5.2" />
   </ItemGroup>
+
+  <ProjectExtensions><VisualStudio><UserProperties ocelot_1json__JsonSchema="" /></VisualStudio></ProjectExtensions>
 
 </Project>

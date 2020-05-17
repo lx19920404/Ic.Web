@@ -3,7 +3,7 @@
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
     "iisExpress": {
-      "applicationUrl": "http://10.0.75.1:52072",
+      "applicationUrl": "http://127.0.0.1:52072",
       "sslPort": 44355
     }
   },
@@ -17,12 +17,12 @@
     },
     "Ic.Blog": {
       "commandName": "Project",
-      "commandLineArgs": "--ip 10.0.75.1 --port 5202",
+      "commandLineArgs": "--ip 127.0.0.1 --port 5202",
       "launchBrowser": true,
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
-      "applicationUrl": "https://10.0.75.1:5001;http://10.0.75.1:5000"
+      "applicationUrl": "https://127.0.0.1:5001;127.0.0.1:5000"
     },
     "Docker": {
       "commandName": "Docker",

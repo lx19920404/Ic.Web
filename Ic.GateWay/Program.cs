@@ -14,6 +14,8 @@ namespace Ic.GateWay
     {
         public static void Main(string[] args)
         {
+            //Console.WriteLine("Press any key to continue");
+            //Console.ReadKey();
             CreateWebHostBuilder(args).Build().Run();
         }
         public static IWebHostBuilder CreateWebHostBuilder(string[] args)

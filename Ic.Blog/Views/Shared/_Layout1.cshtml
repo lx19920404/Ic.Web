@@ -1,0 +1,50 @@
+﻿<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>@ViewData["Title"] - Ic.Blog</title>
+    <link rel="stylesheet" href="~/css/blogPostStyle.css" />
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+
+<body>
+    <div id="mainwrapper">
+        <header>
+            <!--**************************************************************************
+            Header starts here. It contains Logo and 3 navigation links.
+            ****************************************************************************-->
+            <div id="logo"><!-- <img src="logoImage.png" alt="sample logo"> --><!-- Company Logo text -->Logo</div>
+            <nav> <a href="#" title="Link">Nav1</a> <a href="#" title="Link">Nav2</a><a href="#" title="Link">Nav3</a> </nav>
+        </header>
+        <div id="content">
+            <div class="notOnDesktop">
+                <!-- This search box is displayed only in mobile and tablet laouts and not in desktop layouts -->
+                <input type="text" placeholder="Search">
+            </div>
+            @RenderBody()
+            <footer>
+                <!--************************************************************************
+        Footer starts here
+        ****************************************************************************-->
+                <article>
+                    <h3>Footer1</h3>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                </article>
+                <article>
+                    <h3>Footer2</h3>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                </article>
+            </footer>
+        </div>
+        <div id="footerbar"><!-- Small footerbar at the bottom --></div>
+    </div>
+
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

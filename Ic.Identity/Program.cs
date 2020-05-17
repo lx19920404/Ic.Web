@@ -14,14 +14,16 @@ namespace Ic.Identity
     {
         public static void Main(string[] args)
         {
+            //Console.WriteLine("Press any key to continue");
+            //Console.ReadKey();
             CreateWebHostBuilder(args).Build().Run();
         }
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) 
         { 
-            var config1 = new ConfigurationBuilder().AddCommandLine(args).Build();
-            string ip = config1["ip"];
-            string port = config1["port"];
+            var config = new ConfigurationBuilder().AddCommandLine(args).Build();
+            string ip = config["ip"];
+            string port = config["port"];
             return WebHost.CreateDefaultBuilder(args)
                 .UseStartup<Startup>().UseUrls($"http://{ip}:{port}");
         }
