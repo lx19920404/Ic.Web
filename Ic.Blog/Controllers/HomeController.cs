@@ -29,7 +29,10 @@ namespace Ic.Blog.Controllers
         public IActionResult Index()
         {
             //ViewData["BlogTitle"] = DbContext.Blogs.FirstOrDefault().Title;
-            string path = @"D:\Code\Note\Blog\";
+            string path = AppDomain.CurrentDomain.BaseDirectory;
+            path = Path.Combine(path, "..", "..", "..", "..", "..", "..");
+            path = Path.Combine(path, "Note", "Blog");
+            //string path = @"D:\Code\Note\Blog\";
             DirectoryInfo directoryInfo = new DirectoryInfo(path);
             FileInfo[] files = directoryInfo.GetFiles();
             ViewData["Blogs"] = files.Where(p => p.Extension.ToUpper() == ".MD").Select(p => new string[] { Path.GetFileNameWithoutExtension(p.FullName), p.FullName }).ToList();
@@ -42,7 +45,10 @@ namespace Ic.Blog.Controllers
         public IActionResult Index(string blog)
         {
             //ViewData["BlogTitle"] = DbContext.Blogs.FirstOrDefault().Title;
-            string path = @"D:\Code\Note\Blog\";
+            string path = AppDomain.CurrentDomain.BaseDirectory;
+            path = Path.Combine(path, "..", "..", "..", "..", "..", "..");
+            path = Path.Combine(path, "Note", "Blog");
+            //string path = @"D:\Code\Note\Blog\";
             DirectoryInfo directoryInfo = new DirectoryInfo(path);
             FileInfo[] files = directoryInfo.GetFiles();
             ViewData["Blogs"] = files.Where(p => p.Extension.ToUpper() == ".MD").Select(p => new string[] { Path.GetFileNameWithoutExtension(p.FullName), p.FullName }).ToList();
