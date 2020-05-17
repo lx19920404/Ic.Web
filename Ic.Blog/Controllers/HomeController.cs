@@ -38,7 +38,7 @@ namespace Ic.Blog.Controllers
             ViewData["Blogs"] = files.Where(p => p.Extension.ToUpper() == ".MD").Select(p => new string[] { Path.GetFileNameWithoutExtension(p.FullName), p.FullName }).ToList();
             string blog = Path.GetFileNameWithoutExtension(files.FirstOrDefault().FullName);
             ViewData["BlogName"] = blog;
-
+            ViewData["Path"] = path;
             return View();
         }
         [HttpGet("{blog}")]
@@ -54,6 +54,7 @@ namespace Ic.Blog.Controllers
             ViewData["Blogs"] = files.Where(p => p.Extension.ToUpper() == ".MD").Select(p => new string[] { Path.GetFileNameWithoutExtension(p.FullName), p.FullName }).ToList();
 
             ViewData["BlogName"] = blog;
+            ViewData["Path"] = path;
             return View();
         }
 
