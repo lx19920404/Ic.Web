@@ -31,7 +31,7 @@ namespace Ic.Blog.Controllers
             //ViewData["BlogTitle"] = DbContext.Blogs.FirstOrDefault().Title;
             string path = AppDomain.CurrentDomain.BaseDirectory;
             path = Path.Combine(path, "..", "..", "..", "..", "..", "..");
-            path = Path.Combine(path, "Note", "Blog");
+            path = Path.Combine(path, "blog", "Blog");
             //string path = @"D:\Code\Note\Blog\";
             DirectoryInfo directoryInfo = new DirectoryInfo(path);
             FileInfo[] files = directoryInfo.GetFiles();
@@ -47,7 +47,7 @@ namespace Ic.Blog.Controllers
             //ViewData["BlogTitle"] = DbContext.Blogs.FirstOrDefault().Title;
             string path = AppDomain.CurrentDomain.BaseDirectory;
             path = Path.Combine(path, "..", "..", "..", "..", "..", "..");
-            path = Path.Combine(path, "Note", "Blog");
+            path = Path.Combine(path, "blog", "Blog");
             //string path = @"D:\Code\Note\Blog\";
             DirectoryInfo directoryInfo = new DirectoryInfo(path);
             FileInfo[] files = directoryInfo.GetFiles();
