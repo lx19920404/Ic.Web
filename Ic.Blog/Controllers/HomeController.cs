@@ -28,8 +28,8 @@ namespace Ic.Blog.Controllers
 
         public IActionResult Index()
         {
-            ViewData["BlogTitle"] = DbContext.Blogs.FirstOrDefault().Title;
-            string path = @"D:\Code\Note\Note\";
+            //ViewData["BlogTitle"] = DbContext.Blogs.FirstOrDefault().Title;
+            string path = @"D:\Code\Note\Blog\";
             DirectoryInfo directoryInfo = new DirectoryInfo(path);
             FileInfo[] files = directoryInfo.GetFiles();
             ViewData["Blogs"] = files.Where(p => p.Extension.ToUpper() == ".MD").Select(p => new string[] { Path.GetFileNameWithoutExtension(p.FullName), p.FullName }).ToList();
@@ -41,8 +41,8 @@ namespace Ic.Blog.Controllers
         [HttpGet("{blog}")]
         public IActionResult Index(string blog)
         {
-            ViewData["BlogTitle"] = DbContext.Blogs.FirstOrDefault().Title;
-            string path = @"D:\Code\Note\Note\";
+            //ViewData["BlogTitle"] = DbContext.Blogs.FirstOrDefault().Title;
+            string path = @"D:\Code\Note\Blog\";
             DirectoryInfo directoryInfo = new DirectoryInfo(path);
             FileInfo[] files = directoryInfo.GetFiles();
             ViewData["Blogs"] = files.Where(p => p.Extension.ToUpper() == ".MD").Select(p => new string[] { Path.GetFileNameWithoutExtension(p.FullName), p.FullName }).ToList();

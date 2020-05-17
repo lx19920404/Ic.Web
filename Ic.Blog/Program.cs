@@ -14,6 +14,8 @@ namespace Ic.Blog
     {
         public static void Main(string[] args)
         {
+            //Console.WriteLine("Press any key to continue");
+            //Console.ReadKey();
             CreateWebHostBuilder(args).Build().Run();
         }
 

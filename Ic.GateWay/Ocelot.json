@@ -9,7 +9,7 @@
             //不使用服务发现时的认证地址和端口
             "DownstreamHostAndPorts": [
                 {
-                    "Host": "10.0.75.1",
+                    "Host": "127.0.0.1",
                     "Port": "5100"
                 }
             ],
@@ -47,7 +47,7 @@
             },
             "UpstreamPathTemplate": "/client/{url}", // 上游网址模板
             "UpstreamHttpMethod": [ "Get", "Post" ], // 上游请求类型
-            "ReRoutesCaseSensitive": false, // 不区分大小写 non case sensitive
+            "ReRoutesCaseSensitive": false // 不区分大小写 non case sensitive
             //token
             //"AuthenticationOptions": {
             //    "AuthenticationProviderKey": "ClientServiceKey",

@@ -7,12 +7,12 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Ic.ClientService.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     [ApiController]
     public class ValuesController : ControllerBase
     {
         // GET api/values
-        [Authorize]//这样的话，刚刚注册的中间件就会在请求的过程中基于传递过来的token进行Authorization，如果没有token或者token是非法的，它就会告诉api的消费者这个请求时未授权的（HTTP StatusCode 401）
+        /*[Authorize]*///这样的话，刚刚注册的中间件就会在请求的过程中基于传递过来的token进行Authorization，如果没有token或者token是非法的，它就会告诉api的消费者这个请求时未授权的（HTTP StatusCode 401）
         [HttpGet]
         public ActionResult<IEnumerable<string>> Get()
         {

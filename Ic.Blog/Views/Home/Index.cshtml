@@ -3,31 +3,14 @@
     @using Westwind.AspNetCore.Markdown;
 }
 
-<section id="mainContent1">
-        <h1 class="display-4">@ViewData["BlogTitle"]</h1>
+<article class="markdown-body" id="mainContent1">
+        <h1 class="display-4">@ViewData["BlogName"]</h1>
         @*<p>@ViewData["Content"]<a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>*@
-        @Markdown.ParseHtmlStringFromFile(@"D:\Code\Note\Note\"+ViewData["BlogName"]+".md")
-</section>
+        @Markdown.ParseHtmlStringFromFile(@"D:\Code\Note\Blog\"+ViewData["BlogName"]+".md")
+</article>
 
-<section id="sidebar">
-    <!--************************************************************************
-    Sidebar starts here. It contains a searchbox, sample ad image and 6 links
-    ****************************************************************************-->
-    <input type="text" placeholder="Search">
-    <div id="adimage"><img src="file:///C|/Users/lx199/AppData/Roaming/Adobe/Dreamweaver CC 2019/zh_CN/Configuration/Temp/Assets/eam5ADE.tmp/BlogPostAssets/images/300x250.gif" alt="" /></div>
-    <nav>
-        <ul>
-            
-            @{List<string[]> blogs = ViewData["Blogs"] as List<string[]>; }
-            @for (int i = 0; i < blogs.Count; i++)
-            {
-                <li><a href="/api/home/index/@blogs[i][0]" title="@blogs[i][0]">@blogs[i][0]</a></li>
-            }
-        </ul>
-    </nav>
-</section>
 
-@section Scripts {
+@*@section Scripts {
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/vs2015.min.css" rel="stylesheet" />
     <script>
@@ -38,5 +21,5 @@
             }
         });
 
-    </script>
+    </script>*@
 }

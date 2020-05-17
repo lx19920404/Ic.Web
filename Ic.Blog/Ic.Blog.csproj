@@ -4,8 +4,15 @@
     <TargetFramework>netcoreapp2.2</TargetFramework>
     <UserSecretsId>db68dca6-fa9b-42c3-a5fc-b5a8d6d80ba9</UserSecretsId>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
-    <Platforms>AnyCPU;x64</Platforms>
+    <Platforms>x64</Platforms>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Content Remove="Views\Shared\_Layout1.cshtml" />
+    <Content Remove="wwwroot\css\blogPostStyle.css" />
+    <Content Remove="wwwroot\css\site.css" />
+    <Content Remove="wwwroot\js\site.js" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Consul" Version="0.7.2.6" />
@@ -28,6 +35,17 @@
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\css\ie\html5shiv.js" />
+    <None Include="wwwroot\css\ie\PIE.htc" />
+    <None Include="wwwroot\fonts\fontawesome-webfont.svg" />
+    <None Include="wwwroot\fonts\fontawesome-webfont.woff2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\api\home\index\" />
   </ItemGroup>
 
 

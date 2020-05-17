@@ -55,8 +55,8 @@ namespace Ic.Identity
                     ClientSecrets = new [] { new Secret("websecret".Sha256()) },
                     RequireConsent = false,
                     AllowedGrantTypes = GrantTypes.Implicit,
-                    RedirectUris = { "http://10.0.75.1:5200/signin-oidc" },//登录成功后返回的客户端地址
-                    PostLogoutRedirectUris = { "http://10.0.75.1:5200 /signout-callback-oidc" },//注销登录后返回的客户端地址
+                    RedirectUris = { "http://127.0.0.1:5202/signin-oidc" },//登录成功后返回的客户端地址
+                    PostLogoutRedirectUris = { "http://127.0.0.1:5202/signout-callback-oidc" },//注销登录后返回的客户端地址
                     AllowedScopes = new [] { "clientservice",
                         IdentityServerConstants.StandardScopes.OpenId,
                         IdentityServerConstants.StandardScopes.Profile },
