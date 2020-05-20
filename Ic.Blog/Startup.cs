@@ -47,8 +47,6 @@ namespace Ic.Blog
                 options.UseMySql(Configuration["DB:MySql"]);
             });
 
-
-
             services.Configure<CookiePolicyOptions>(options =>
             {
                 // This lambda determines whether user consent for non-essential cookies is needed for a given request.
@@ -56,15 +54,12 @@ namespace Ic.Blog
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-
             //services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             services.AddMvc(options =>
             {
                 //定义全局路由前缀
                 options.UseCentralRoutePrefix(new RouteAttribute("api/"));
             }).SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
-
-
 
             //IdentityServer
             JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear(); // ensure not change any return Claims from Authorization Server
@@ -83,9 +78,6 @@ namespace Ic.Blog
                 options.ResponseType = "id_token token"; // allow to return access token
                 options.SaveTokens = true;
             });
-
-
-
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -104,6 +96,11 @@ namespace Ic.Blog
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 //app.UseHsts();
             }
+
+            DefaultFilesOptions options = new DefaultFilesOptions();
+            options.DefaultFileNames.Add("/api/home/index");    //将index.html改为需要默认起始页的文件名.
+            app.UseDefaultFiles(options);
+
 
             //app.UseHttpsRedirection();
             //配置验证
