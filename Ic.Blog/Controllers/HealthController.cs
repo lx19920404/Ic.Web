@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Ic.Blog.Controllers
 {
-    //[Route("api/[controller]")]
     [Route("[controller]")]
     [ApiController]
     public class HealthController : ControllerBase
