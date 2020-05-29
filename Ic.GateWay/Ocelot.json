@@ -72,7 +72,8 @@
     "GlobalConfiguration": {
         //服务发现的地址和端口
         "ServiceDiscoveryProvider": {
-            "Host": "127.0.0.1", // Consul Service IP
+            "Host": "172.17.179.176", // Consul Service IP
+            //"Host": "127.0.0.1", // Consul Service IP
             "Port": 8500 // Consul Service Port
         }
     }
