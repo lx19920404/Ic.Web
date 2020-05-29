@@ -40,11 +40,16 @@ namespace Ic.Identity
             //IdentiryServer4
             string basePath = PlatformServices.Default.Application.ApplicationBasePath;
             InMemoryConfiguration.Configuration = this.Configuration;
+
+
+            //证书位置
+            string certificatesPath = Path.Combine(basePath, Configuration["Certificates:CerPath"]);
+            Console.WriteLine($"Certificates name:{certificatesPath}");
             services.AddIdentityServer()
                 //对于Token签名需要一对公钥和私钥，不过IdentityServer为开发者提供了一个AddDeveloperSigningCredential()方法，它会帮我们搞定这个事，并默认存到硬盘中。当切换到生产环境时，还是得使用正儿八经的证书，更换为使用AddSigningCredential()方法。
                 //.AddDeveloperSigningCredential()
                 //生产环境配置的真实证书
-                .AddSigningCredential(new X509Certificate2(Path.Combine(basePath, Configuration["Certificates:CerPath"]), Configuration["Certificates:Password"]))
+                .AddSigningCredential(new X509Certificate2(certificatesPath, Configuration["Certificates:Password"]))
                 //.AddTestUsers(InMemoryConfiguration.GetUsers().ToList())
                 .AddInMemoryIdentityResources(InMemoryConfiguration.GetIdentityResources())
                 .AddInMemoryApiResources(InMemoryConfiguration.GetApiResources())
