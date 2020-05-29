@@ -10,28 +10,28 @@
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
     <meta name="description" content="" />
     <meta name="keywords" content="" />
-    <!--[if lte IE 8]><script src="css/ie/html5shiv.js"></script><![endif]-->
+    <!--[if lte IE 8]><script src="blogasset/css/ie/html5shiv.js"></script><![endif]-->
     <script src="http://apps.bdimg.com/libs/jquery/1.11.1/jquery.min.js"></script>
-    <script src="~/js/skel.min.js"></script>
-    <script src="~/js/skel-layers.min.js"></script>
-    <script src="~/js/init.js"></script>
-    <link rel="stylesheet" href="~/css/markdown/common.css" />
-    <link rel="stylesheet" href="~/css/markdown/github-markdown.css" />
-    <link rel="stylesheet" href="~/css/markdown/navbar.css" />
+    <script src="~/blogasset/js/skel.min.js"></script>
+    <script src="~/blogasset/js/skel-layers.min.js"></script>
+    <script src="~/blogasset/js/init.js"></script>
+    <link rel="stylesheet" href="~/blogasset/css/markdown/common.css" />
+    <link rel="stylesheet" href="~/blogasset/css/markdown/github-markdown.css" />
+    <link rel="stylesheet" href="~/blogasset/css/markdown/navbar.css" />
     <style>
-	.markdown-body {
-		    box-sizing: border-box;
-		    min-width: 200px;
-		    max-width: 980px;
-		    margin: 0 auto;
-		    padding: 45px;
-	    }
+        .markdown-body {
+            box-sizing: border-box;
+            min-width: 200px;
+            max-width: 980px;
+            margin: 0 auto;
+            padding: 45px;
+        }
     </style>
     <noscript>
-        <link rel="stylesheet" href="~/css/skel.css" />
-        <link rel="stylesheet" href="~/css/style.css" />
-        <link rel="stylesheet" href="~/css/style-desktop.css" />
-        <link rel="stylesheet" href="~/css/style-wide.css" />
+        <link rel="stylesheet" href="~/blogasset/css/skel.css" />
+        <link rel="stylesheet" href="~/blogasset/css/style.css" />
+        <link rel="stylesheet" href="~/blogasset/css/style-desktop.css" />
+        <link rel="stylesheet" href="~/blogasset/css/style-wide.css" />
     </noscript>
     <!--[if lte IE 8]><link rel="stylesheet" href="css/ie/v8.css" /><![endif]-->
 </head>
@@ -52,17 +52,17 @@
 
                 <!-- Pagination 下面分页导航-->
                 @*<div class="pagination">*@
-                    <!--<a href="#" class="button previous">Previous Page</a>-->
-                    @*<div class="pages">
-                        <a href="#" class="active">1</a>
-                        <a href="#">2</a>
-                        <a href="#">3</a>
-                        <a href="#">4</a>
-                        <span>&hellip;</span>
-                        <a href="#">20</a>
-                    </div>
-                    <a href="#" class="button next">Next Page</a>
-                </div>*@
+                <!--<a href="#" class="button previous">Previous Page</a>-->
+                @*<div class="pages">
+                            <a href="#" class="active">1</a>
+                            <a href="#">2</a>
+                            <a href="#">3</a>
+                            <a href="#">4</a>
+                            <span>&hellip;</span>
+                            <a href="#">20</a>
+                        </div>
+                        <a href="#" class="button next">Next Page</a>
+                    </div>*@
 
             </div>
         </div>
@@ -108,12 +108,12 @@
                 <header>
                     <h2>Recent Posts</h2>
                 </header>
-                
+
                 <ul>
                     @{List<string[]> blogs = ViewData["Blogs"] as List<string[]>; }
                     @for (int i = 0; i < blogs.Count; i++)
                     {
-                        <li><a href="/api/home/index/@blogs[i][0]" title="@blogs[i][0]">@blogs[i][0]</a></li>
+                        <li><a href="/blog/home/index/@blogs[i][0]" title="@blogs[i][0]">@blogs[i][0]</a></li>
                     }
                 </ul>
             </section>
@@ -201,8 +201,9 @@
         </div>
 
     </div>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script src="~/blogasset/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/blogasset/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     @RenderSection("Scripts", required: false)
 </body>
 </html>

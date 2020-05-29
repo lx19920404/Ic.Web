@@ -57,7 +57,7 @@
         //Blog服务路由
         {
             "UseServiceDiscovery": true, // 是否启用服务发现
-            "DownstreamPathTemplate": "/api/{url}", // 下游网址模板
+            "DownstreamPathTemplate": "/blog/{url}", // 下游网址模板
             "DownstreamScheme": "http", // 下游网址协议
             "ServiceName": "BlogService", // 服务名称,此名称为
             "LoadBalancerOptions": { // 负载均衡选项
@@ -66,7 +66,21 @@
             "UpstreamPathTemplate": "/blog/{url}", // 上游网址模板
             "UpstreamHttpMethod": [ "Get", "Post" ], // 上游请求类型
             "ReRoutesCaseSensitive": false // 不区分大小写 non case sensitive
+        },
+        //Blog资源路由
+        {
+            "UseServiceDiscovery": true, // 是否启用服务发现
+            "DownstreamPathTemplate": "/blogasset/{url}", // 下游网址模板
+            "DownstreamScheme": "http", // 下游网址协议
+            "ServiceName": "BlogService", // 服务名称,此名称为
+            "LoadBalancerOptions": { // 负载均衡选项
+                "Type": "RoundRobin" // 轮询调度
+            },
+            "UpstreamPathTemplate": "/blogasset/{url}", // 上游网址模板
+            "UpstreamHttpMethod": [ "Get", "Post" ], // 上游请求类型
+            "ReRoutesCaseSensitive": false // 不区分大小写 non case sensitive
         }
+
 
     ],
     "GlobalConfiguration": {

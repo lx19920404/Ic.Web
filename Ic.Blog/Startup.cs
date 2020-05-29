@@ -58,7 +58,7 @@ namespace Ic.Blog
             services.AddMvc(options =>
             {
                 //定义全局路由前缀
-                options.UseCentralRoutePrefix(new RouteAttribute("api/"));
+                options.UseCentralRoutePrefix(new RouteAttribute("blog/"));
             }).SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
             //IdentityServer
@@ -98,7 +98,7 @@ namespace Ic.Blog
             }
 
             DefaultFilesOptions options = new DefaultFilesOptions();
-            options.DefaultFileNames.Add("/api/home/index");    //将index.html改为需要默认起始页的文件名.
+            options.DefaultFileNames.Add("/blog/home/index");    //将index.html改为需要默认起始页的文件名.
             app.UseDefaultFiles(options);
 
 
@@ -135,7 +135,7 @@ namespace Ic.Blog
                 {
                     DeregisterCriticalServiceAfter = TimeSpan.FromSeconds(5),//服务停止多久后反注册
                     Interval = TimeSpan.FromSeconds(10),//健康检查时间间隔，或者称为心跳间隔
-                    HTTP = $"http://{newIp}:{port}/api/health",//健康检查地址,
+                    HTTP = $"http://{newIp}:{port}/blog/health",//健康检查地址,
                     Timeout = TimeSpan.FromSeconds(5)
                 }
             });
