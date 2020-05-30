@@ -35,29 +35,27 @@ namespace Ic.Identity
             return new[]
             {
                 //ClientService项目使用密码方式授权
-                new Client
-                {
-                    ClientId = "cas.sg.web.nb",
-                    ClientName = "CAS NB System MPA Client",
-                    ClientSecrets = new [] { new Secret("websecret".Sha256()) },
-                    AllowedGrantTypes = GrantTypes.ResourceOwnerPassword,
-                    //RedirectUris = {Configuration["Clients:MvcClient:RedirectUri"]},
-                    //PostLogoutRedirectUris = { Configuration["Clients:MvcClient:PostLogoutRedirectUri"] },//{ $"http://{Configuration["Clients:MvcClient:IP"]}:{Configuration["Clients:MvcClient:Port"]}/signout-callback-oidc" },
-                    AllowedScopes = new [] { "clientservice",
-                        IdentityServerConstants.StandardScopes.OpenId,
-                        IdentityServerConstants.StandardScopes.Profile }
-                },
+                //new Client
+                //{
+                //    ClientId = "cas.sg.web.nb",
+                //    ClientName = "CAS NB System MPA Client",
+                //    ClientSecrets = new [] { new Secret("websecret".Sha256()) },
+                //    AllowedGrantTypes = GrantTypes.ResourceOwnerPassword,
+                //    AllowedScopes = new [] { "clientservice",
+                //        IdentityServerConstants.StandardScopes.OpenId,
+                //        IdentityServerConstants.StandardScopes.Profile }
+                //},
                 //Blog项目采用OpenIDConnect方式
                 new Client
                 {
-                    ClientId = "cas.sg.web.implicit",
-                    ClientName = "CAS NB System MPA Client",
+                    ClientId = Configuration["Clients:BlogClient:ClientId"],
+                    ClientName = Configuration["Clients:BlogClient:ClientName"],
                     ClientSecrets = new [] { new Secret("websecret".Sha256()) },
                     RequireConsent = false,
                     AllowedGrantTypes = GrantTypes.Implicit,
-                    RedirectUris = { "http://127.0.0.1:5202/signin-oidc" },//登录成功后返回的客户端地址
-                    PostLogoutRedirectUris = { "http://127.0.0.1:5202/signout-callback-oidc" },//注销登录后返回的客户端地址
-                    AllowedScopes = new [] { "clientservice",
+                    RedirectUris = { Configuration["Clients:BlogClient:RedirectUri"] },//登录成功后返回的客户端地址
+                    PostLogoutRedirectUris = { Configuration["Clients:BlogClient:PostLogoutRedirectUri"] },//注销登录后返回的客户端地址
+                    AllowedScopes = new [] { Configuration["Clients:BlogClient:AllowedScope"],
                         IdentityServerConstants.StandardScopes.OpenId,
                         IdentityServerConstants.StandardScopes.Profile },
                     AllowAccessTokensViaBrowser = true  //can return access_token to this client
