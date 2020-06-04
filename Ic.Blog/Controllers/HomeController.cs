@@ -32,7 +32,6 @@ namespace Ic.Blog.Controllers
             string path = AppDomain.CurrentDomain.BaseDirectory;
             path = Path.Combine(path, "..", "..", "..", "..", "..", "..");
             path = Path.Combine(path, "blog", "Blog");
-            //string path = @"D:\Code\Note\Blog\";
             DirectoryInfo directoryInfo = new DirectoryInfo(path);
             FileInfo[] files = directoryInfo.GetFiles();
             ViewData["Blogs"] = files.Where(p => p.Extension.ToUpper() == ".MD").Select(p => new string[] { Path.GetFileNameWithoutExtension(p.FullName), p.FullName }).OrderBy(p => p[0]).ToList();

@@ -71,15 +71,41 @@
         <div id="sidebar">
 
             <!-- Logo -->
-            <h1 id="logo"><a href="#">iCyrene</a></h1>
+            <h1 id="logo"><a href="/">iCyrene</a></h1>
+
+            <!-- Recent Posts -->
+            <section class="box recent-posts">
+                <header>
+                    <h2>Recent Posts</h2>
+                </header>
+
+                <ul>
+                    @{List<string[]> blogs = ViewData["Blogs"] as List<string[]>; }
+                    @for (int i = 0; i < blogs.Count; i++)
+                    {
+                        <li><a href="/blog/home/index/@blogs[i][0]" title="@blogs[i][0]">@blogs[i][0]</a></li>
+                    }
+                </ul>
+            </section>
+
+            <!-- Recent Comments -->
+            @*<section class="box recent-comments">
+                <header>
+                    <h2>Recent Comments</h2>
+                </header>
+                <ul>
+                    <li>case on <a href="#">Lorem ipsum dolor</a></li>
+                    <li>molly on <a href="#">Sed dolore magna</a></li>
+                    <li>case on <a href="#">Sed dolore magna</a></li>
+                </ul>
+            </section>*@
 
             <!-- Nav -->
             <nav id="nav">
                 <ul>
-                    <li class="current"><a href="#">Latest Post</a></li>
-                    <li><a href="#">Archives</a></li>
-                    <li><a href="#">About Me</a></li>
-                    <li><a href="#">Contact Me</a></li>
+                    <li class="current"><a href="/blog/test">Latest Post</a></li>
+                    <li><a href="/blog/test">About Me</a></li>
+                    <li><a href="/blog/test">Contact Me</a></li>
                     <li><a href="#">Logout</a></li>
                 </ul>
             </nav>
@@ -99,35 +125,6 @@
                         template designed by <a href="#">AJ</a> for <a href="#">HTML5 UP</a>
                     </p>
                 </div>
-            </section>
-
-            <!-- Recent Posts -->
-
-
-            <section class="box recent-posts">
-                <header>
-                    <h2>Recent Posts</h2>
-                </header>
-
-                <ul>
-                    @{List<string[]> blogs = ViewData["Blogs"] as List<string[]>; }
-                    @for (int i = 0; i < blogs.Count; i++)
-                    {
-                        <li><a href="/blog/home/index/@blogs[i][0]" title="@blogs[i][0]">@blogs[i][0]</a></li>
-                    }
-                </ul>
-            </section>
-
-            <!-- Recent Comments -->
-            <section class="box recent-comments">
-                <header>
-                    <h2>Recent Comments</h2>
-                </header>
-                <ul>
-                    <li>case on <a href="#">Lorem ipsum dolor</a></li>
-                    <li>molly on <a href="#">Sed dolore magna</a></li>
-                    <li>case on <a href="#">Sed dolore magna</a></li>
-                </ul>
             </section>
 
             <!-- Calendar -->
