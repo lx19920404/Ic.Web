@@ -83,7 +83,7 @@
                     @{List<string[]> blogs = ViewData["Blogs"] as List<string[]>; }
                     @for (int i = 0; i < blogs.Count; i++)
                     {
-                        <li><a href="/blog/home/index/@blogs[i][0]" title="@blogs[i][0]">@blogs[i][0]</a></li>
+                        <li><a href="/blog/article/index/@blogs[i][0]" title="@blogs[i][0]">@blogs[i][0]</a></li>
                     }
                 </ul>
             </section>

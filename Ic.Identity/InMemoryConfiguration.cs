@@ -55,6 +55,7 @@ namespace Ic.Identity
                     AllowedGrantTypes = GrantTypes.Implicit,
                     RedirectUris = { Configuration["Clients:BlogClient:RedirectUri"] },//登录成功后返回的客户端地址
                     PostLogoutRedirectUris = { Configuration["Clients:BlogClient:PostLogoutRedirectUri"] },//注销登录后返回的客户端地址
+
                     AllowedCorsOrigins = {"http://www.icyrene.cn","http://47.94.156.149:5200"},
                     AllowedScopes = new [] { Configuration["Clients:BlogClient:AllowedScope"],
                         IdentityServerConstants.StandardScopes.OpenId,

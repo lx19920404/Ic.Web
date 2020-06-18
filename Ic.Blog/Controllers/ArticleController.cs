@@ -15,12 +15,12 @@ namespace Ic.Blog.Controllers
 {
     //[Authorize]
     [Route("[Controller]/[Action]")]
-    public class HomeController : Controller
+    public class ArticleController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly ILogger<ArticleController> _logger;
         private BlogDbContext DbContext;
 
-        public HomeController(ILogger<HomeController> logger, BlogDbContext dbContext)
+        public ArticleController(ILogger<ArticleController> logger, BlogDbContext dbContext)
         {
             _logger = logger;
             DbContext = dbContext;
@@ -28,7 +28,6 @@ namespace Ic.Blog.Controllers
 
         public IActionResult Index()
         {
-            //ViewData["BlogTitle"] = DbContext.Blogs.FirstOrDefault().Title;
             string path = AppDomain.CurrentDomain.BaseDirectory;
             path = Path.Combine(path, "..", "..", "..", "..", "..", "..");
             path = Path.Combine(path, "blog", "Blog");
@@ -43,11 +42,9 @@ namespace Ic.Blog.Controllers
         [HttpGet("{blog}")]
         public IActionResult Index(string blog)
         {
-            //ViewData["BlogTitle"] = DbContext.Blogs.FirstOrDefault().Title;
             string path = AppDomain.CurrentDomain.BaseDirectory;
             path = Path.Combine(path, "..", "..", "..", "..", "..", "..");
             path = Path.Combine(path, "blog", "Blog");
-            //string path = @"D:\Code\Note\Blog\";
             DirectoryInfo directoryInfo = new DirectoryInfo(path);
             FileInfo[] files = directoryInfo.GetFiles();
             ViewData["Blogs"] = files.Where(p => p.Extension.ToUpper() == ".MD").Select(p => new string[] { Path.GetFileNameWithoutExtension(p.FullName), p.FullName }).ToList();
