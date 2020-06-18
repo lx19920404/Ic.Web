@@ -17,6 +17,7 @@ using Ic.Blog.DbContexts;
 using Microsoft.EntityFrameworkCore;
 using Westwind.AspNetCore.Markdown;
 using Markdig;
+using Markdig.Extensions.AutoIdentifiers;
 
 namespace Ic.Blog
 {
@@ -32,15 +33,32 @@ namespace Ic.Blog
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            //services.AddMarkdown(options =>
-            //{
-            //    options.ConfigureMarkdigPipeline = config =>
-            //    {
-            //        config.UseGlobalization();
-            //    };
-            //});
+            services.AddMarkdown(options =>
+            {
+                options.ConfigureMarkdigPipeline = config =>
+                {
+                    config
+                    .UseEmphasisExtras()
+                    .UsePipeTables()
+                    .UseGridTables()
+                    .UseFooters()
+                    .UseFootnotes()
+                    .UseCitations()
+                    .UseAutoLinks() // URLs are parsed into anchors
+                    .UseAutoIdentifiers(AutoIdentifierOptions.Default) // Headers get id="name" 
+                    .UseAbbreviations()
+                    .UseYamlFrontMatter()
+                    .UseEmojiAndSmiley(true)
+                    .UseMediaLinks()
+                    .UseListExtras()
+                    .UseFigures()
+                    .UseTaskLists()
+                    .UseCustomContainers()
+                    .UseGenericAttributes();
+                };
+            });
 
-            services.AddMarkdown();
+            //services.AddMarkdown();
 
             services.AddDbContextPool<BlogDbContext>(options =>
             {
