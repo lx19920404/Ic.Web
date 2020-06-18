@@ -18,6 +18,7 @@ using Microsoft.EntityFrameworkCore;
 using Westwind.AspNetCore.Markdown;
 using Markdig;
 using Markdig.Extensions.AutoIdentifiers;
+using Markdig.Extensions.AutoLinks;
 
 namespace Ic.Blog
 {
@@ -33,6 +34,8 @@ namespace Ic.Blog
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            AutoLinkOptions autoLinkOpt = new AutoLinkOptions();
+            autoLinkOpt.ValidPreviousCharacters = "";
             services.AddMarkdown(options =>
             {
                 options.ConfigureMarkdigPipeline = config =>
@@ -45,7 +48,7 @@ namespace Ic.Blog
                     .UseFootnotes()
                     .UseCitations()
                     .UseAutoLinks() // URLs are parsed into anchors
-                    .UseAutoIdentifiers(AutoIdentifierOptions.Default) // Headers get id="name" 
+                    .UseAutoIdentifiers() // Headers get id="name" 
                     .UseAbbreviations()
                     .UseYamlFrontMatter()
                     .UseEmojiAndSmiley(true)
@@ -116,7 +119,7 @@ namespace Ic.Blog
             }
 
             DefaultFilesOptions options = new DefaultFilesOptions();
-            options.DefaultFileNames.Add("/blog/home/index");    //将index.html改为需要默认起始页的文件名.
+            options.DefaultFileNames.Add("/blog/article/index");    //将index.html改为需要默认起始页的文件名.
             app.UseDefaultFiles(options);
 
 
@@ -131,7 +134,7 @@ namespace Ic.Blog
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                    template: "{controller=Article}/{action=Index}/{id?}");
             });
 
             //***************此处为Consul注册代码********************************************************************
