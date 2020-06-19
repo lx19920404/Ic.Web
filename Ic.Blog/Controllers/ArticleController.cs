@@ -47,7 +47,7 @@ namespace Ic.Blog.Controllers
             path = Path.Combine(path, "blog", "Blog");
             DirectoryInfo directoryInfo = new DirectoryInfo(path);
             FileInfo[] files = directoryInfo.GetFiles();
-            ViewData["Blogs"] = files.Where(p => p.Extension.ToUpper() == ".MD").Select(p => new string[] { Path.GetFileNameWithoutExtension(p.FullName), p.FullName }).ToList();
+            ViewData["Blogs"] = files.Where(p => p.Extension.ToUpper() == ".MD").Select(p => new string[] { Path.GetFileNameWithoutExtension(p.FullName), p.FullName }).OrderBy(p => p[0]).ToList();
 
             ViewData["BlogName"] = blog;
             ViewData["Path"] = path;
