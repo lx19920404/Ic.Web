@@ -2,14 +2,13 @@
 
 FROM mcr.microsoft.com/dotnet/core/aspnet:2.2-stretch-slim AS base
 WORKDIR /app
-EXPOSE 80
-EXPOSE 443
+EXPOSE 5202
 
 FROM mcr.microsoft.com/dotnet/core/sdk:2.2-stretch AS build
 WORKDIR /src
-COPY ["Ic.Blog/Ic.Blog.csproj", "Ic.Blog/"]
+COPY ["Ic.Blog.csproj", "Ic.Blog/"]
 RUN dotnet restore "Ic.Blog/Ic.Blog.csproj"
-COPY . .
+COPY [".","Ic.Blog"]
 WORKDIR "/src/Ic.Blog"
 RUN dotnet build "Ic.Blog.csproj" -c Release -o /app/build
 
@@ -19,4 +18,4 @@ RUN dotnet publish "Ic.Blog.csproj" -c Release -o /app/publish
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "Ic.Blog.dll"]
+ENTRYPOINT ["dotnet", "Ic.Blog.dll", "--ip","*","--port","5202"]

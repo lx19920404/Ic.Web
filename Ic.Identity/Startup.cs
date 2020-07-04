@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net;
+using System.Net.NetworkInformation;
+using System.Net.Sockets;
 using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 using Consul;
@@ -77,8 +80,16 @@ namespace Ic.Identity
             //for QuickStart-UI 为IdentityServer4.QuickStart-UI提供支持
             app.UseStaticFiles();
             app.UseMvcWithDefaultRoute();
-            
 
+            NetworkInterface[] networks = NetworkInterface.GetAllNetworkInterfaces();
+            string serverIpAddresses = string.Empty;
+            string ipAddress = "";
+            foreach (var network in networks)
+            {
+                ipAddress = network.GetIPProperties().UnicastAddresses.Where(p => p.Address.AddressFamily == AddressFamily.InterNetwork && !IPAddress.IsLoopback(p.Address)).FirstOrDefault()?.Address.ToString();
+                if (ipAddress != null && !string.IsNullOrEmpty(ipAddress))
+                    break;
+            }
 
             //***************此处为Consul注册代码********************************************************************
             String ip = Configuration["ip"];//部署到不同服务器的时候不能写成127.0.0.1或者0.0.0.0,因为这是让服务消费者调用的地址
@@ -88,18 +99,18 @@ namespace Ic.Identity
                 config.Address = new Uri(Configuration["ConsulServer:Uri"]);
                 config.Datacenter = Configuration["ConsulServer:Datacenter"];
             });
-            string newIp = "127.0.0.1";
+            //string newIp = "127.0.0.1";
             Task<WriteResult> result = client.Agent.ServiceRegister(new AgentServiceRegistration()
             {
                 ID = "IdentityService_" + Guid.NewGuid().ToString().Substring(0, 7),//服务编号，不能重复，用Guid最简单
                 Name = "IdentityService",//服务的名字
-                Address = newIp,//我的ip地址(可以被其他应用访问的地址，本地测试可以用127.0.0.1，机房环境中一定要写自己的内网ip地址)
+                Address = ipAddress,//我的ip地址(可以被其他应用访问的地址，本地测试可以用127.0.0.1，机房环境中一定要写自己的内网ip地址)
                 Port = port,//我的端口
                 Check = new AgentServiceCheck()
                 {
                     DeregisterCriticalServiceAfter = TimeSpan.FromSeconds(5),//服务停止多久后反注册
                     Interval = TimeSpan.FromSeconds(10),//健康检查时间间隔，或者称为心跳间隔
-                    HTTP = $"http://{newIp}:{port}/api/health",//健康检查地址,
+                    HTTP = $"http://{ipAddress}:{port}/api/health",//健康检查地址,
                     Timeout = TimeSpan.FromSeconds(5)
                 }
             });
