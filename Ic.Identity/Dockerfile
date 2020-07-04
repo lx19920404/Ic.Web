@@ -1,12 +1,14 @@
+#See https://aka.ms/containerfastmode to understand how Visual Studio uses this Dockerfile to build your images for faster debugging.
+
 FROM mcr.microsoft.com/dotnet/core/aspnet:2.2-stretch-slim AS base
 WORKDIR /app
-EXPOSE 80
+EXPOSE 5100
 
 FROM mcr.microsoft.com/dotnet/core/sdk:2.2-stretch AS build
 WORKDIR /src
-COPY ["Ic.Identity/Ic.Identity.csproj", "Ic.Identity/"]
+COPY ["Ic.Identity.csproj", "Ic.Identity/"]
 RUN dotnet restore "Ic.Identity/Ic.Identity.csproj"
-COPY . .
+COPY [".","Ic.Identity"]
 WORKDIR "/src/Ic.Identity"
 RUN dotnet build "Ic.Identity.csproj" -c Release -o /app/build
 
@@ -16,4 +18,4 @@ RUN dotnet publish "Ic.Identity.csproj" -c Release -o /app/publish
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "Ic.Identity.dll"]
+ENTRYPOINT ["dotnet", "Ic.Identity.dll","--ip","*","--port","5100"]

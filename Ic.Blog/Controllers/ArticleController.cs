@@ -29,8 +29,7 @@ namespace Ic.Blog.Controllers
         public IActionResult Index()
         {
             string path = AppDomain.CurrentDomain.BaseDirectory;
-            path = Path.Combine(path, "..", "..", "..", "..", "..", "..");
-            path = Path.Combine(path, "blog", "Blog");
+            path = Path.Combine(path, "wwwroot", "md");
             DirectoryInfo directoryInfo = new DirectoryInfo(path);
             FileInfo[] files = directoryInfo.GetFiles();
             ViewData["Blogs"] = files.Where(p => p.Extension.ToUpper() == ".MD").Select(p => new string[] { Path.GetFileNameWithoutExtension(p.FullName), p.FullName }).OrderBy(p => p[0]).ToList();
@@ -43,8 +42,7 @@ namespace Ic.Blog.Controllers
         public IActionResult Index(string blog)
         {
             string path = AppDomain.CurrentDomain.BaseDirectory;
-            path = Path.Combine(path, "..", "..", "..", "..", "..", "..");
-            path = Path.Combine(path, "blog", "Blog");
+            path = Path.Combine(path, "wwwroot", "md");
             DirectoryInfo directoryInfo = new DirectoryInfo(path);
             FileInfo[] files = directoryInfo.GetFiles();
             ViewData["Blogs"] = files.Where(p => p.Extension.ToUpper() == ".MD").Select(p => new string[] { Path.GetFileNameWithoutExtension(p.FullName), p.FullName }).OrderBy(p => p[0]).ToList();
@@ -56,8 +54,7 @@ namespace Ic.Blog.Controllers
         public IActionResult List(string keyword)
         {
             string path = AppDomain.CurrentDomain.BaseDirectory;
-            path = Path.Combine(path, "..", "..", "..", "..", "..", "..");
-            path = Path.Combine(path, "blog", "Blog");
+            path = Path.Combine(path, "wwwroot", "md");
             DirectoryInfo directoryInfo = new DirectoryInfo(path);
             FileInfo[] files = directoryInfo.GetFiles();
             ViewData["Blogs"] = files.Where(p => p.Extension.ToUpper() == ".MD").Select(p => new string[] { Path.GetFileNameWithoutExtension(p.FullName), p.FullName }).OrderBy(p => p[0]).ToList();
@@ -66,8 +63,7 @@ namespace Ic.Blog.Controllers
         public IActionResult List()
         {
             string path = AppDomain.CurrentDomain.BaseDirectory;
-            path = Path.Combine(path, "..", "..", "..", "..", "..", "..");
-            path = Path.Combine(path, "blog", "Blog");
+            path = Path.Combine(path, "wwwroot", "md");
             DirectoryInfo directoryInfo = new DirectoryInfo(path);
             FileInfo[] files = directoryInfo.GetFiles();
             ViewData["Blogs"] = files.Where(p => p.Extension.ToUpper() == ".MD").Select(p => new string[] { Path.GetFileNameWithoutExtension(p.FullName), p.FullName }).OrderBy(p => p[0]).ToList();
