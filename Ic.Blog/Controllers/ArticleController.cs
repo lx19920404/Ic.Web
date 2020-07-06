@@ -51,6 +51,7 @@ namespace Ic.Blog.Controllers
             ViewData["Path"] = path;
             return View();
         }
+        [HttpGet("{keyword}")]
         public IActionResult List(string keyword)
         {
             string path = AppDomain.CurrentDomain.BaseDirectory;

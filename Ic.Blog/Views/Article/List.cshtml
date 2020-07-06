@@ -1,13 +1,38 @@
 ﻿@{
-    ViewData["Title"] = "list";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = ViewData["BlogName"] + "iCyrene的个人博客";
 }
 
-<ul>
-    @{List<string[]> blogs = ViewData["Blogs"] as List<string[]>; }
-    @for (int i = 0; i < blogs.Count; i++)
-    {
-        <li><a href="/blog/article/index/@blogs[i][0]" title="@blogs[i][0]">@blogs[i][0]</a></li>
-    }
-</ul>
+    <articlelist>
+        
+        @{List<string[]> blogs = ViewData["Blogs"] as List<string[]>; }
+        @for (int i = 0; i < blogs.Count; i++)
+        {
+            <div class="item">
+                <div class="item-left">
+                    <div class="item-title">
+                        <a href="/blog/article/index/@blogs[i][0]" title="@blogs[i][0]">@blogs[i][0]</a>
+                    </div>
+                    <div class="item-summary">
+                    </div>
+                </div>
+                <div class="item-right">
+                    @*<img src="~/blogasset/img/article.jpg"/>*@
+                </div>
+            </div>
+        }
+    </articlelist>
+<!-- Pagination 下面分页导航-->
+<div class="pagination">
+    <!--<a href="#" class="button previous">Previous Page</a>-->
+    <div class="pages">
+            <a href="#" class="active">1</a>
+            <a href="#">2</a>
+            <a href="#">3</a>
+            <a href="#">4</a>
+            <span>&hellip;</span>
+            <a href="#">20</a>
+    </div>
+    <a href="#" class="button next">Next Page</a>
+</div>
+
 
