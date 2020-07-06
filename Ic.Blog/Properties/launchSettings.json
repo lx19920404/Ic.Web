@@ -19,10 +19,11 @@
       "commandName": "Project",
       "commandLineArgs": "--ip 127.0.0.1 --port 5202",
       "launchBrowser": true,
+      "launchUrl": "blog/article/list",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
-      "applicationUrl": "https://127.0.0.1:5001;127.0.0.1:5000"
+      "applicationUrl": "http://127.0.0.1:5202"
     },
     "Docker": {
       "commandName": "Docker",
