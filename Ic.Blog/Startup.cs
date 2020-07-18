@@ -44,6 +44,7 @@ namespace Ic.Blog
                 options.ConfigureMarkdigPipeline = config =>
                 {
                     config
+                    .UseMathematics()
                     .UseEmphasisExtras()
                     .UsePipeTables()
                     .UseGridTables()
