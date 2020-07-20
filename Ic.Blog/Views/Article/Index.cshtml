@@ -22,6 +22,68 @@
         });
     </script>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.3.0/raphael.min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="http://flowchart.js.org/flowchart-latest.js"></script>
+    <script>
+        var cds = document.getElementsByClassName("language-flow");
+        for (i = 0; i < cds.length; i++) {
+
+            cd = cds[i];
+            var code = cd.innerHTML;
+            code = code.replace(/&gt;/g, ">");
+            var diagram = flowchart.parse(code);
+            var pre = cd.parentElement;
+            var father = pre.parentElement;
+            var div = document.createElement("div");
+            div.id = "diagram";
+            father.replaceChild(div, pre);
+            //diagram.drawSVG('diagram');
+
+            //you can also try to pass options:
+            diagram.drawSVG('diagram', {
+                'x': 0,
+                'y': 0,
+                'line-width': 3,
+                'line-length': 50,
+                'text-margin': 10,
+                'font-size': 14,
+                'font-color': 'black',
+                'line-color': 'black',
+                'element-color': 'black',
+                'fill': 'white',
+                'yes-text': 'yes',
+                'no-text': 'no',
+                'arrow-end': 'block',
+                'scale': 1,
+                // style symbol types
+                'symbols': {
+                    'start': {
+                        'font-color': 'red',
+                        'element-color': 'green',
+                        'fill': 'yellow'
+                    },
+                    'end': {
+                        'class': 'end-element'
+                    }
+                },
+                // even flowstate support ;-)
+                'flowstate': {
+                    'past': { 'fill': '#CCCCCC', 'font-size': 12 },
+                    'current': { 'fill': 'yellow', 'font-color': 'red', 'font-weight': 'bold' },
+                    'future': { 'fill': '#FFFF99' },
+                    'request': { 'fill': 'blue' },
+                    'invalid': { 'fill': '#444444' },
+                    'approved': { 'fill': '#58C4A3', 'font-size': 12, 'yes-text': 'APPROVED', 'no-text': 'n/a' },
+                    'rejected': { 'fill': '#C45879', 'font-size': 12, 'yes-text': 'n/a', 'no-text': 'REJECTED' }
+                }
+            });
+        }
+    </script>
+
+
+
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML-full"></script>
     <script type="text/javascript">
         let isMathjaxConfig = false; // 防止重复调用Config，造成性能损耗
@@ -55,4 +117,6 @@
         // 因为使用的Vuejs，所以指明#app，以提高速度
         window.MathJax.Hub.Queue(["Typeset", MathJax.Hub, document.getElementById('article')]);
     </script>
+
+
 }
