@@ -14,22 +14,32 @@
     margin:3px;
 }
 .item-title a{
-    font-size:24px;
+    font-size:20px;
     color:black;
 }
-.item-summary p {
-    font-size: 18px;
-    color: black;
+.item-summary p{
+    font-size: 14px;
+    color: gray;
+    line-height:18px;
+    
 }
+
 .item-left{
-    width:80%;
+    width:75%;
     padding:1px;
     display:inline-block;
 }
 .item-right{
-    width:16%;
+    
+    width:20%;
     padding:1px;
     display:inline-block;
 }
+
+.item-right img {
+    max-width: 300px;
+    _width: expression(this.width > 300 ? "300px" : this.width);
+}
+
 
 

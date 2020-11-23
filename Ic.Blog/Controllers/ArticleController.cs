@@ -32,7 +32,9 @@ namespace Ic.Blog.Controllers
             path = Path.Combine(path, "wwwroot", "md");
             DirectoryInfo directoryInfo = new DirectoryInfo(path);
             FileInfo[] files = directoryInfo.GetFiles();
-            ViewData["Blogs"] = files.Where(p => p.Extension.ToUpper() == ".MD").Select(p => new string[] { Path.GetFileNameWithoutExtension(p.FullName), p.FullName }).OrderBy(p => p[0]).ToList();
+
+            ViewData["Blogs"] = GetBlogSummaries();
+
             string blog = Path.GetFileNameWithoutExtension(files.FirstOrDefault().FullName);
             ViewData["BlogName"] = blog;
             ViewData["Path"] = path;
@@ -45,7 +47,8 @@ namespace Ic.Blog.Controllers
             path = Path.Combine(path, "wwwroot", "md");
             DirectoryInfo directoryInfo = new DirectoryInfo(path);
             FileInfo[] files = directoryInfo.GetFiles();
-            ViewData["Blogs"] = files.Where(p => p.Extension.ToUpper() == ".MD").Select(p => new string[] { Path.GetFileNameWithoutExtension(p.FullName), p.FullName }).OrderBy(p => p[0]).ToList();
+            ViewData["Blogs"] = GetBlogSummaries();
+
 
             ViewData["BlogName"] = blog;
             ViewData["Path"] = path;
@@ -54,21 +57,12 @@ namespace Ic.Blog.Controllers
         [HttpGet("{keyword}")]
         public IActionResult List(string keyword)
         {
-            string path = AppDomain.CurrentDomain.BaseDirectory;
-            path = Path.Combine(path, "wwwroot", "md");
-            DirectoryInfo directoryInfo = new DirectoryInfo(path);
-            FileInfo[] files = directoryInfo.GetFiles();
-            ViewData["Blogs"] = files.Where(p => p.Extension.ToUpper() == ".MD").Select(p => new string[] { Path.GetFileNameWithoutExtension(p.FullName), p.FullName }).OrderBy(p => p[0]).ToList();
+            ViewData["Blogs"] = GetBlogSummaries();
             return View();
         }
         public IActionResult List()
         {
-            string path = AppDomain.CurrentDomain.BaseDirectory;
-            path = Path.Combine(path, "wwwroot", "md");
-            DirectoryInfo directoryInfo = new DirectoryInfo(path);
-            FileInfo[] files = directoryInfo.GetFiles();
-            ViewData["Blogs"] = files.Where(p => p.Extension.ToUpper() == ".MD").Select(p => new string[] { Path.GetFileNameWithoutExtension(p.FullName), p.FullName }).OrderBy(p => p[0]).ToList();
-            string blog = Path.GetFileNameWithoutExtension(files.FirstOrDefault().FullName);
+            ViewData["Blogs"] = GetBlogSummaries();
             return View();
         }
 
@@ -81,6 +75,26 @@ namespace Ic.Blog.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+
+        private List<BlogSummary> GetBlogSummaries()
+        {
+            string path = AppDomain.CurrentDomain.BaseDirectory;
+            path = Path.Combine(path, "wwwroot", "md");
+            DirectoryInfo directoryInfo = new DirectoryInfo(path);
+            FileInfo[] files = directoryInfo.GetFiles();
+            return files.Where(p => p.Extension.ToUpper() == ".MD").Select(p =>
+            {
+                BlogSummary blog = new BlogSummary();
+                blog.title = Path.GetFileNameWithoutExtension(p.FullName);
+                StreamReader sr = new StreamReader(p.FullName);
+                string summary = sr.ReadToEnd();
+                if (summary.Length > 200)
+                    summary = summary.Substring(0, 200);
+                blog.summary = summary;
+                blog.keyword = null;
+                return blog;
+            }).OrderBy(p => p.title).ToList();
         }
     }
 }
