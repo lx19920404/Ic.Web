@@ -389,6 +389,7 @@
 .markdown-body pre {
   margin-bottom: 0;
   margin-top: 0;
+  background-color: black
 }
 
 .markdown-body input::-webkit-inner-spin-button,
