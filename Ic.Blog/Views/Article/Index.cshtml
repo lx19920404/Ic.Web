@@ -4,7 +4,7 @@
 }
 
 <article class="markdown-body" id="mainContent1">
-    <h1 class="display-4">@(ViewData["Blog"] as BlogSummary).title</h1>
+    <h1 class="display-4">@((ViewData["Blog"] as BlogSummary).title)</h1>
     @*<p>@ViewData["Content"]<a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>*@
     @Markdown.ParseHtmlStringFromFile(@"/md/" + (ViewData["Blog"] as BlogSummary).title + ".md")
 </article>
