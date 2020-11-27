@@ -4,15 +4,40 @@
     padding:10px;
     float:none;
     border-radius:10px;
+    padding-bottom:5px;
 }
 .item-title{
     height:30%;
     margin:3px;
 }
 .item-summary{
-    height:70%;
+    height:50%;
     margin:3px;
+    margin:0px;
 }
+.item-tags{
+    height:10%;
+    margin:0px;
+}
+
+.item-tags div{
+    margin-right:20px;
+    display:inline-block
+}
+
+.item-tags img{
+    height:14px;
+    width:auto;
+    display:inline-block;
+    padding-top:4px;
+}
+
+.item-tags a {
+    display: inline-block;
+    color:gray;
+    font-size:14px;
+}
+
 .item-title a{
     font-size:20px;
     color:black;
