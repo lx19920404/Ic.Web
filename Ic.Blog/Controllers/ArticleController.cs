@@ -28,41 +28,30 @@ namespace Ic.Blog.Controllers
 
         public IActionResult Index()
         {
-            string path = AppDomain.CurrentDomain.BaseDirectory;
-            path = Path.Combine(path, "wwwroot", "md");
-            DirectoryInfo directoryInfo = new DirectoryInfo(path);
-            FileInfo[] files = directoryInfo.GetFiles();
-
             ViewData["Blogs"] = GetBlogSummaries();
-
-            string blog = Path.GetFileNameWithoutExtension(files.FirstOrDefault().FullName);
-            ViewData["BlogName"] = blog;
-            ViewData["Path"] = path;
+            ViewData["Tags"] = allTags;
+            ViewData["Blog"] = (ViewData["Blogs"] as List<BlogSummary>)[0];
             return View();
         }
         [HttpGet("{blog}")]
         public IActionResult Index(string blog)
         {
-            string path = AppDomain.CurrentDomain.BaseDirectory;
-            path = Path.Combine(path, "wwwroot", "md");
-            DirectoryInfo directoryInfo = new DirectoryInfo(path);
-            FileInfo[] files = directoryInfo.GetFiles();
             ViewData["Blogs"] = GetBlogSummaries();
-
-
-            ViewData["BlogName"] = blog;
-            ViewData["Path"] = path;
+            ViewData["Tags"] = allTags;
+            ViewData["Blog"] = (ViewData["Blogs"] as List<BlogSummary>).FirstOrDefault(p => p.title == blog);
             return View();
         }
         [HttpGet("{keyword}")]
         public IActionResult List(string keyword)
         {
-            ViewData["Blogs"] = GetBlogSummaries();
+            ViewData["Blogs"] = GetBlogSummaries().Where(p => p.keyword.Contains(keyword)).ToList();
+            ViewData["Tags"] = allTags;
             return View();
         }
         public IActionResult List()
         {
             ViewData["Blogs"] = GetBlogSummaries();
+            ViewData["Tags"] = allTags;
             return View();
         }
 
@@ -92,9 +81,23 @@ namespace Ic.Blog.Controllers
                 if (summary.Length > 200)
                     summary = summary.Substring(0, 200);
                 blog.summary = summary;
-                blog.keyword = null;
+                StreamReader sr2 = new StreamReader(p.FullName);
+                string tags = sr2.ReadLine();
+                blog.keyword = new string[] {};
+                if (tags != null && tags.ToUpper().Contains("TAG"))
+                {
+                    blog.keyword = tags.Split(" ").Skip(1).ToArray();
+                    for(int i= 0; i < blog.keyword.Length; i++)
+                    {
+                        if (!allTags.Contains(blog.keyword[i]))
+                            allTags.Add(blog.keyword[i]);
+                    }
+                }
+                blog.path = p.FullName;
                 return blog;
             }).OrderBy(p => p.title).ToList();
         }
+
+        private List<string> allTags = new List<string>();
     }
 }

@@ -17,6 +17,15 @@
                             @blogs[i].summary
                         </p>
                     </div>
+                    <div class="item-tags">
+                        @for(int j = 0; j < blogs[i].keyword.Length; j++)
+                        {
+                            <div>
+                                <img src="~/blogasset/img/tag.png">
+                                <a href="/blog/article/list/@blogs[i].keyword[j]">@blogs[i].keyword[j]</a>
+                            </div>
+                        }
+                    </div>
                 </div>
                 <div class="item-right">
                     <img src="~/blogasset/img/article.jpg"/>

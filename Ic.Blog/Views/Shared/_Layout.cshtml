@@ -81,10 +81,10 @@
                 </header>
 
                 <ul>
-                    @{List<BlogSummary> blogs = ViewData["Blogs"] as List<BlogSummary>; }
-                    @for (int i = 0; i < blogs.Count; i++)
+                    @{List<string> tags = ViewData["Tags"] as List<string>; }
+                    @for (int i = 0; i < tags.Count; i++)
                     {
-                        <li><a href="/blog/article/index/@blogs[i].title" title="@blogs[i].title">@blogs[i].title</a></li>
+                        <li><a href="/blog/article/list/@tags[i]" title="@tags[i]">@tags[i]</a></li>
                     }
                 </ul>
             </section>
