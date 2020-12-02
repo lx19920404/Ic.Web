@@ -340,3 +340,5 @@ ASALocalRun/
 healthchecksdb
 /Ic/output/Logs
 /output/Logs
+/Ic.Blog/wwwroot/blog
+/Ic.Blog/wwwroot/md
