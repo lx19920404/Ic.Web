@@ -28,13 +28,37 @@ namespace Ic.Api
         {
             services.AddControllers();
         }
-
+        
+        public static Task GetRequestSchemeMiddleware(HttpContext context,Func<Task> next)
+        {
+            string line = $"Request Method:{context.Request.Scheme}";
+            next.Invoke();
+            return context.Response.WriteAsync(line + "\r\n");
+        }
+        public static async Task GetRequestMethodMiddleware(HttpContext context, Func<Task> next)
+        {
+            string line = $"Request Method:{context.Request.Method}";
+            await next.Invoke();
+            await context.Response.WriteAsync(line + "\r\n");
+        }
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            app.Use(GetRequestSchemeMiddleware);
+            app.Use(GetRequestMethodMiddleware);
+            app.Use(async (httpContext, func) =>
+            {
+                await func.Invoke();
+            });
+            app.Use((httpContext, func) =>
+            {
+                if (httpContext.Request.Path.Value.Contains("snapped"))
+                    return httpContext.Response.WriteAsync("be snapped\r\n");
+                return func.Invoke();
+            });
             app.Run(async context =>
             {
-                await context.Response.WriteAsync("hello world");
+                await context.Response.WriteAsync("Terminal\r\n");
             });
 
 
