@@ -134,6 +134,7 @@ namespace Ic.Blog
             app.UseMarkdown();
             app.UseStaticFiles();
             app.UseCookiePolicy();
+            app.UseRequestAddressMiddleware();
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
