@@ -84,7 +84,8 @@ namespace Ic.Blog
             {
                 //定义全局路由前缀
                 options.UseCentralRoutePrefix(new RouteAttribute("blog/"));
-            }).SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+                options.EnableEndpointRouting = false;
+            }).SetCompatibilityVersion(CompatibilityVersion.Latest);
 
             //IdentityServer
             JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear(); // ensure not change any return Claims from Authorization Server
@@ -106,7 +107,7 @@ namespace Ic.Blog
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostEnvironment env)
         {
             IdentityModelEventSource.ShowPII = true;
 
@@ -135,6 +136,8 @@ namespace Ic.Blog
             app.UseStaticFiles();
             app.UseCookiePolicy();
             app.UseRequestAddressMiddleware();
+            MvcOptions mvcOptions = new MvcOptions();
+            mvcOptions.EnableEndpointRouting = false;
             app.UseMvc(routes =>
             {
                 routes.MapRoute(

@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
@@ -29,9 +30,10 @@ namespace Ic.ClientService
         {
             services.AddMvc(options => {
                 options.UseCentralRoutePrefix(new RouteAttribute("api/"));
-            }).SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+                options.EnableEndpointRouting = false;
+            }).SetCompatibilityVersion(CompatibilityVersion.Latest);
             //IdentityServer
-            services.AddMvcCore().AddAuthorization().AddJsonFormatters();
+            services.AddMvcCore().AddAuthorization();
             services.AddAuthentication(Configuration["IdentityService:DefaultScheme"])
                 .AddIdentityServerAuthentication(options =>
                 {
@@ -45,7 +47,7 @@ namespace Ic.ClientService
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
