@@ -1,5 +1,5 @@
 {
-    "ReRoutes": [
+    "Routes": [
         
         //认证服务
         {
@@ -34,7 +34,7 @@
             "HttpHandlerOptions": {
                 "UseTracing": false // use butterfly to tracing request chain
             },
-            "ReRoutesCaseSensitive": false // 大小写敏感
+            "RoutesCaseSensitive": false // 大小写敏感
         },
         //接口服务路由
         {
@@ -47,7 +47,7 @@
             },
             "UpstreamPathTemplate": "/client/{url}", // 上游网址模板
             "UpstreamHttpMethod": [ "Get", "Post" ], // 上游请求类型
-            "ReRoutesCaseSensitive": false // 不区分大小写 non case sensitive
+            "RoutesCaseSensitive": false // 不区分大小写 non case sensitive
             //token
             //"AuthenticationOptions": {
             //    "AuthenticationProviderKey": "ClientServiceKey",
@@ -65,7 +65,7 @@
             },
             "UpstreamPathTemplate": "/blog/{url}", // 上游网址模板
             "UpstreamHttpMethod": [ "Get", "Post" ], // 上游请求类型
-            "ReRoutesCaseSensitive": false // 不区分大小写 non case sensitive
+            "RoutesCaseSensitive": false // 不区分大小写 non case sensitive
         },
         //Blog资源路由
         {
@@ -78,7 +78,7 @@
             },
             "UpstreamPathTemplate": "/blogasset/{url}", // 上游网址模板
             "UpstreamHttpMethod": [ "Get", "Post" ], // 上游请求类型
-            "ReRoutesCaseSensitive": false // 不区分大小写 non case sensitive
+            "RoutesCaseSensitive": false // 不区分大小写 non case sensitive
         }
 
 
