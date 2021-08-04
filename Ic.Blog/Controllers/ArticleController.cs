@@ -92,6 +92,10 @@ namespace Ic.Blog.Controllers
                         if (!allTags.Contains(blog.keyword[i]))
                             allTags.Add(blog.keyword[i]);
                     }
+                    if (string.IsNullOrEmpty(blog.image))
+                    {
+                        blog.image = blog.keyword[0] + ".jpg";
+                    }
                 }
                 blog.path = p.FullName;
                 return blog;
