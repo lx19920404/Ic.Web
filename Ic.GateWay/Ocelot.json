@@ -5,7 +5,7 @@
         {
             "UseServiceDiscovery": true, // do not use Consul service discovery in DEV env
             "DownstreamPathTemplate": "/{url}",
-            "DownstreamScheme": "http",
+            //"DownstreamScheme": "http",
             //不使用服务发现时的认证地址和端口
             "DownstreamHostAndPorts": [
                 {
@@ -40,7 +40,7 @@
         {
             "UseServiceDiscovery": true, // 是否启用服务发现
             "DownstreamPathTemplate": "/api/{url}", // 下游网址模板
-            "DownstreamScheme": "http", // 下游网址协议
+            //"DownstreamScheme": "http", // 下游网址协议
             "ServiceName": "ClientService", // 服务名称,此名称为
             "LoadBalancerOptions": { // 负载均衡选项
                 "Type": "RoundRobin" // 轮询调度
@@ -58,7 +58,7 @@
         {
             "UseServiceDiscovery": true, // 是否启用服务发现
             "DownstreamPathTemplate": "/blog/{url}", // 下游网址模板
-            "DownstreamScheme": "http", // 下游网址协议
+            //"DownstreamScheme": "http", // 下游网址协议
             "ServiceName": "BlogService", // 服务名称,此名称为
             "LoadBalancerOptions": { // 负载均衡选项
                 "Type": "RoundRobin" // 轮询调度
@@ -71,7 +71,7 @@
         {
             "UseServiceDiscovery": true, // 是否启用服务发现
             "DownstreamPathTemplate": "/blogasset/{url}", // 下游网址模板
-            "DownstreamScheme": "http", // 下游网址协议
+            //"DownstreamScheme": "http", // 下游网址协议
             "ServiceName": "BlogService", // 服务名称,此名称为
             "LoadBalancerOptions": { // 负载均衡选项
                 "Type": "RoundRobin" // 轮询调度
