@@ -84,7 +84,7 @@ namespace Ic.Blog.Controllers
                 StreamReader sr2 = new StreamReader(p.FullName);
                 string tags = sr2.ReadLine();
                 blog.keyword = new string[] {};
-                if (tags != null && tags.ToUpper().Contains("TAG"))
+                if (tags != null && tags.Trim().ToUpper().Contains("TAG"))
                 {
                     blog.keyword = tags.Split(" ").Skip(1).ToArray();
                     for(int i= 0; i < blog.keyword.Length; i++)
